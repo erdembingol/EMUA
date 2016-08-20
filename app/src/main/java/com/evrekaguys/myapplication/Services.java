@@ -35,7 +35,6 @@ public class Services extends AsyncTask<Context, String, List<?>> {
         this.requestType = requestType;
     }
 
-    //Lokal DB DEN Cateygory Listesi Çekilmesi
     private void downloadCategoryListToLocalDB(Context c){
       List<Category> categoryList = menuServices.getCategoryList(c);
         DBHelper dbHelper = new DBHelper(c);
@@ -93,7 +92,9 @@ public class Services extends AsyncTask<Context, String, List<?>> {
             //   return null;
             //}else if("downloadProductListToLocalDB".equals(requestType)){
             downloadProductListToLocalDB(params[0]);
-
+            if(1==1){
+              ;
+            }
             getCompany(params[0]);
 
         }
