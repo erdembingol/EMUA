@@ -86,6 +86,9 @@ public class Services extends AsyncTask<Context, String, List<?>> {
        // if("downloadCategoryListToLocalDB".equals(requestType)){
         if(!isCancelled()) {
             downloadCategoryListToLocalDB(params[0]);
+
+            /* Bakalım conflict olacak mı? */
+
             //   return null;
             //}else if("downloadProductListToLocalDB".equals(requestType)){
             downloadProductListToLocalDB(params[0]);
