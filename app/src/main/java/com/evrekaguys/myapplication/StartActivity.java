@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
+import java.io.File;
 import java.io.Serializable;
 
 /**
@@ -23,11 +24,25 @@ public class StartActivity extends Activity{
         img.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                Intent newActivity = new Intent(StartActivity.this, MainActivity.class);
-                newActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(newActivity);
+                goTabletMenu(v);
                 return true;
             }
         });
+    }
+
+    public void goTabletMenu(View v) {
+        if (isLicenced()) {
+            Intent intent = new Intent(StartActivity.this, MainActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        } else {
+            Intent intent = new Intent(StartActivity.this, LicenceScreen.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+        }
+    }
+
+    private boolean isLicenced() {
+        return new File("licence.txt").exists();
     }
 }

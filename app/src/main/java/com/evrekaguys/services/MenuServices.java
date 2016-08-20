@@ -18,4 +18,5 @@ public interface MenuServices {
     public List<Product> getProductListFromDB(Context c);
     public Company getCompany(Context c);
     public Company getCompanyFromDB(Context c);
+    public boolean checkLicenceCode(Context c, String licenceCode);
 }
