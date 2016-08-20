@@ -16,6 +16,7 @@ import com.evrekaguys.utils.MenuUtils;
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;
 import org.ksoap2.transport.HttpTransportSE;
 import org.xmlpull.v1.XmlPullParserException;
@@ -45,6 +46,30 @@ public class MenuServicesImpl implements MenuServices {
     }
 
     @Override
+    public boolean checkLicenceCode(Context c, String licenceCode) {
+        SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_CHECK_LICENCE_CODE);
+        request.addProperty("MAC", MenuUtils.getMacAddress(c));
+        request.addProperty("LicenceCode",licenceCode);
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        envelope.setOutputSoapObject(request);
+
+        //Create HTTP call object
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(WebServiceConstants.URL);
+        try {
+            androidHttpTransport.call(WebServiceConstants.SOAP_ACTION_CHECK_LICENCE_CODE, envelope);
+
+            //Get the response
+            SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
+            return Boolean.valueOf(response.toString());
+
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
+    @Override
     public Company getCompany(Context c) {
         SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_GET_COMPANY);
         request.addProperty("MAC",MenuUtils.getMacAddress(c));
@@ -53,7 +78,7 @@ public class MenuServicesImpl implements MenuServices {
         Bitmap bitmap = null;
 
             Object property = response.getProperty(0);
-            if(property instanceof  SoapObject) {
+            if(property instanceof SoapObject) {
                 SoapObject companyObj = (SoapObject) property;
 
                 Integer companyID = Integer.parseInt(companyObj.getProperty("Company_ID").toString());
