@@ -94,6 +94,9 @@ public class Services extends AsyncTask<Context, String, List<?>> {
 
         }
             return null;
+
+        /* Bu da benden olsun */
+
         //}else if("getCategoryList".equals(requestType)){
          //   return getCategoryList(params[0]);
         //}else if("getProductList".equals(requestType)){
