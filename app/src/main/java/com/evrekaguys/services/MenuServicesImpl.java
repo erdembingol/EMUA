@@ -104,7 +104,7 @@ public class MenuServicesImpl implements MenuServices {
                 // GET IMAGEURL AND SAVE IMAGE
                 String[] imageArray = logoUrl.split("/");
                 String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
-                company.setCompanyLogoUrl("/sdcard/menu_images/"+imageFileName);
+                company.setCompanyLogoUrl(c.getExternalFilesDir(null) + "/EmuaTablet/"+imageFileName);
                 try {
                     bitmap = null;
                     InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(logoUrl,"UTF-8").replace("+", "%20")).openStream();
@@ -112,7 +112,7 @@ public class MenuServicesImpl implements MenuServices {
                     inputStream.close();
                 } catch (IOException e) {
                 }
-                createDirectoryAndSaveFile(bitmap, imageFileName);
+                createDirectoryAndSaveFile(c, bitmap, imageFileName);
 
                 // GET CATEGORY ORDER
                 company.setAdress(adress);
@@ -191,7 +191,7 @@ public class MenuServicesImpl implements MenuServices {
                 // GET IMAGEURL AND SAVE IMAGE
                 String[] imageArray = imageUrl.split("/");
                 String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
-                category.setCategoryImageUrl("/sdcard/menu_images/"+imageFileName);
+                category.setCategoryImageUrl(c.getExternalFilesDir(null) + "/EmuaTablet/"+imageFileName);
                 try {
                     bitmap = null;
                     InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(imageUrl,"UTF-8").replace("+", "%20")).openStream();
@@ -199,7 +199,7 @@ public class MenuServicesImpl implements MenuServices {
                     inputStream.close();
                 } catch (IOException e) {
                 }
-                createDirectoryAndSaveFile(bitmap, imageFileName);
+                createDirectoryAndSaveFile(c,bitmap, imageFileName);
 
                 // GET CATEGORY ORDER
                 category.setOrder(categoryOrder);
@@ -254,7 +254,7 @@ public class MenuServicesImpl implements MenuServices {
                 String[] imageArray= imageUrl.split("/");
                 String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
                 // GET IMAGEURL AND SAVE IMAGE
-                product.setProductImageUrl("/sdcard/menu_images/"+imageFileName);
+                product.setProductImageUrl(c.getExternalFilesDir(null) + "/EmuaTablet/"+imageFileName);
                 try {
                     bitmap = null;
                     InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(imageUrl,"UTF-8").replace("+", "%20")).openStream();
@@ -264,7 +264,7 @@ public class MenuServicesImpl implements MenuServices {
                     e.printStackTrace();
                 }
 
-                createDirectoryAndSaveFile(bitmap, imageFileName);
+                createDirectoryAndSaveFile(c,bitmap, imageFileName);
 
                 // GET PRODUCT ORDER
                 product.setOrder(productOrder);
@@ -313,16 +313,16 @@ public class MenuServicesImpl implements MenuServices {
     }
 
 
-    private void createDirectoryAndSaveFile(Bitmap imageToSave, String fileName) {
+    private void createDirectoryAndSaveFile(Context c, Bitmap imageToSave, String fileName) {
 
-        File direct = new File(Environment.getExternalStorageDirectory() + "/sdcard/menu_images");
+        File direct = new File(c.getExternalFilesDir(null) + "/EmuaTablet");
 
         if (!direct.exists()) {
-            File wallpaperDirectory = new File("/sdcard/menu_images/");
+            File wallpaperDirectory = new File(c.getExternalFilesDir(null) + "/EmuaTablet");
             wallpaperDirectory.mkdirs();
         }
 
-        File file = new File(new File("/sdcard/menu_images/"), fileName);
+        File file = new File(new File(c.getExternalFilesDir(null) + "/EmuaTablet"), fileName);
         if (file.exists()) {
             file.delete();
         }
