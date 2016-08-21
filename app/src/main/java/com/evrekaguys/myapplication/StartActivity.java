@@ -2,6 +2,7 @@ package com.evrekaguys.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
@@ -43,6 +44,15 @@ public class StartActivity extends Activity{
     }
 
     private boolean isLicenced() {
-        return new File("licence.txt").exists();
+
+        SharedPreferences settings = getSharedPreferences("LICENCE", 0);
+        boolean licenced = settings.getBoolean("licenced", false);
+
+        if(licenced){
+            return true;
+        }else{
+            return false;
+        }
+
     }
 }

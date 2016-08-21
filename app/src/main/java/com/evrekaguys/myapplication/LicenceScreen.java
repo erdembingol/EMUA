@@ -3,6 +3,7 @@ package com.evrekaguys.myapplication;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
@@ -88,7 +89,16 @@ public class LicenceScreen extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(Void result) {
+            SharedPreferences settings = getSharedPreferences("LICENCE", 0);
+            boolean licenced = settings.getBoolean("licenced", false);
+
             if (isLicenced) {
+
+                if (!licenced) {
+                    SharedPreferences.Editor editor = settings.edit();
+                    editor.putBoolean("licenced", true);
+                    editor.commit();
+                }
                 saveLicenceCode(new View(LicenceScreen.this));
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreen.this);
