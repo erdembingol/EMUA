@@ -1,27 +1,12 @@
 package com.evrekaguys.myapplication;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.os.Environment;
-import android.util.Log;
 
 import com.evrekaguys.services.MenuServices;
 import com.evrekaguys.services.MenuServicesImpl;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-
-import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
-
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.net.URL;
 
 /**
  * Created by HP A4 on 30.5.2016.

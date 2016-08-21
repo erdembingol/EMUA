@@ -4,9 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.os.Environment;
 
 import java.io.File;
 import java.net.NetworkInterface;

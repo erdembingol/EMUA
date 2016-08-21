@@ -1,40 +1,27 @@
 package com.evrekaguys.myapplication;
 
-import android.app.Activity;
-import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.evrekaguys.services.MenuServices;
 import com.evrekaguys.services.MenuServicesImpl;
 import com.evrekaguys.utils.MenuUtils;
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
-import java.util.concurrent.ExecutionException;
-
 
 public class MainActivity extends AppCompatActivity implements Serializable{
 
@@ -49,6 +36,9 @@ public class MainActivity extends AppCompatActivity implements Serializable{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
         DBHelper dbHelper = new DBHelper(getApplicationContext());
         SharedPreferences settings = getSharedPreferences("SQL", 0);
         boolean firstTime = settings.getBoolean("firstTime", true);
