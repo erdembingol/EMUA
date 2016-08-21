@@ -126,4 +126,10 @@ public class MainActivity extends AppCompatActivity implements Serializable{
             });
         }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(MainActivity.this, StartActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
     }
+}
