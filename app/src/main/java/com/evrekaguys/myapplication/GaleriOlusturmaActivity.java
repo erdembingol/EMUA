@@ -1,23 +1,12 @@
 package com.evrekaguys.myapplication;
 
-import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
-import android.widget.Gallery;
 import android.widget.GridView;
-import android.widget.ImageView;
 
 import com.evrekaguys.utils.MenuUtils;
 
@@ -34,6 +23,9 @@ public class GaleriOlusturmaActivity extends AppCompatActivity implements Serial
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
+
+		getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
         String categoryName = getIntent().getStringExtra("categoryName").split("/-/")[0].toUpperCase();
 		Category selectedCategory = (Category) getIntent().getSerializableExtra("selectedCategory");
 		final ArrayList<Product> productList = (ArrayList<Product>) getIntent().getSerializableExtra("productList");

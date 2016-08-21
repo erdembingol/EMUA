@@ -8,7 +8,8 @@ android:paddingBottom="@dimen/activity_vertical_margin"
 android:paddingLeft="@dimen/activity_horizontal_margin"
 android:paddingRight="@dimen/activity_horizontal_margin"
 android:paddingTop="@dimen/activity_vertical_margin"
-tools:context="com.evrekaguys.myapplication.LicenceScreen">
+tools:context="com.evrekaguys.myapplication.LicenceScreen"
+    android:background="@android:color/holo_orange_light">
 
 <Button
     android:layout_width="fill_parent"
@@ -17,7 +18,8 @@ tools:context="com.evrekaguys.myapplication.LicenceScreen">
     android:id="@+id/send"
     android:layout_below="@+id/licence_code"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentStart="true" />
+    android:layout_alignParentStart="true"
+    android:background="#ffffff" />
 
 <EditText
     android:layout_width="wrap_content"
@@ -29,7 +31,8 @@ tools:context="com.evrekaguys.myapplication.LicenceScreen">
     android:layout_alignParentStart="true"
     android:layout_alignParentRight="true"
     android:layout_alignParentEnd="true"
-    android:textColor="#464646" />
+    android:textColor="#464646"
+    android:onClick="clearLicenceCodeArea" />
 
 <TextView
     android:layout_width="wrap_content"

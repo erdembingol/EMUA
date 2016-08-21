@@ -21,13 +21,35 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".GaleriOlusturmaActivity"></activity>
-        <activity android:name=".LicenceScreen" android:label="Licence Screen"></activity>
+        <activity android:name=".MainActivity"
+                android:parentActivityName=".StartActivity">
+                <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value=".StartActivity">
+                </meta-data>
+        </activity>
+        <activity android:name=".GaleriOlusturmaActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity">
+            </meta-data></activity>
+        <activity android:name=".LicenceScreen" android:label="Licence Screen"
+            android:parentActivityName=".StartActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StartActivity">
+            </meta-data></activity>
         <activity android:name=".DetailsActivity" />
         <activity
             android:name=".SwipeActivity"
-            android:screenOrientation="landscape" />
+            android:screenOrientation="landscape"
+            android:parentActivityName=".GaleriOlusturmaActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".GaleriOlusturmaActivity">
+            </meta-data>
+        </activity>
     </application>
 
 </manifest>

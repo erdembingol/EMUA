@@ -1,11 +1,8 @@
 package com.evrekaguys.myapplication;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,38 +10,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 
 import com.evrekaguys.services.MenuServices;
 import com.evrekaguys.services.MenuServicesImpl;
 
-import org.ksoap2.SoapEnvelope;
-import org.ksoap2.serialization.PropertyInfo;
-import org.ksoap2.serialization.SoapObject;
-import org.ksoap2.serialization.SoapPrimitive;
-import org.ksoap2.serialization.SoapSerializationEnvelope;
-import org.ksoap2.transport.HttpTransportSE;
-
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 public class LicenceScreen extends AppCompatActivity {
 
-    private final String NAMESPACE = "http://tempuri.org/";
-    private final String METHOD_NAME = "SelectLicenceCode";
-    private final String SOAP_ACTION = "http://tempuri.org/SelectLicenceCode";
-    private final String URL = "http://demo.avnibabaoglu.com/EmuaService.asmx";
-
     private static String licenceCode = "";
-    private static String mac = "";
     private static boolean isLicenced;
     private MenuServices menuServices = new MenuServicesImpl();
 
     Button b;
     EditText et;
-
-    TextView tw;//////////////////////////////////
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +56,17 @@ public class LicenceScreen extends AppCompatActivity {
         });
     }
 
+    public void clearLicenceCodeArea(View v) {
+
+        EditText area = (EditText)findViewById(R.id.licence_code);
+        area.setText("");
+
+    }
+
     private class AsyncCallWS extends AsyncTask<String, Void, Void> {
         @Override
         protected Void doInBackground(String... params) {
             isLicenced = menuServices.checkLicenceCode(getApplicationContext(),licenceCode);
-            //isLicenced = true;
             return null;
         }
 
@@ -93,13 +76,11 @@ public class LicenceScreen extends AppCompatActivity {
             boolean licenced = settings.getBoolean("licenced", false);
 
             if (isLicenced) {
-
                 if (!licenced) {
                     SharedPreferences.Editor editor = settings.edit();
                     editor.putBoolean("licenced", true);
                     editor.commit();
                 }
-                saveLicenceCode(new View(LicenceScreen.this));
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreen.this);
                 dialog.setMessage("Licence is activated ...")
@@ -108,8 +89,6 @@ public class LicenceScreen extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(LicenceScreen.this, MainActivity.class);
-                                tw = (TextView) findViewById(R.id.textView3);
-                                tw.setText(mac + " # " + licenceCode);
                                 startActivity(intent);
                             }
                         });
@@ -138,18 +117,6 @@ public class LicenceScreen extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Void... values) {}
 
-    }
-
-    private void saveLicenceCode(View v) {
-        try {
-            FileOutputStream outputStream = openFileOutput("licence.txt", Context.MODE_PRIVATE);
-            outputStream.write(licenceCode.getBytes());
-            outputStream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 }

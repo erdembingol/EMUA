@@ -1,26 +1,24 @@
 package com.evrekaguys.myapplication;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-import java.io.File;
-import java.io.Serializable;
-
 /**
  * Created by HP A4 on 29.5.2016.
  */
-public class StartActivity extends Activity{
+public class StartActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.start_layout);
+
+        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
         ImageView img = (ImageView) findViewById(R.id.start);
         img.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -48,11 +46,7 @@ public class StartActivity extends Activity{
         SharedPreferences settings = getSharedPreferences("LICENCE", 0);
         boolean licenced = settings.getBoolean("licenced", false);
 
-        if(licenced){
-            return true;
-        }else{
-            return false;
-        }
+        return licenced;
 
     }
 }
