@@ -1,10 +1,7 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.myapplication.model;
 
 import android.graphics.Bitmap;
 
-/**
- * Created by HP A4 on 28.5.2016.
- */
 public class ImageItem {
     private Bitmap image;
     private String title;
