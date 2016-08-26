@@ -1,4 +1,4 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.myapplication.adaptor;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.evrekaguys.myapplication.R;
 
 import java.util.List;
 

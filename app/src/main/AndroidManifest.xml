@@ -14,40 +14,46 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".StartActivity">
+
+        <activity android:name=".activity.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"
-                android:parentActivityName=".StartActivity">
-                <meta-data
-                    android:name="android.support.PARENT_ACTIVITY"
-                    android:value=".StartActivity">
-                </meta-data>
+
+        <activity android:name=".activity.CategoryListActivity"
+            android:parentActivityName=".activity.StartActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activity.StartActivity">
+            </meta-data>
         </activity>
-        <activity android:name=".GaleriOlusturmaActivity"
-            android:parentActivityName=".MainActivity">
+
+        <activity android:name=".activity.ProductListActivity"
+            android:parentActivityName=".activity.CategoryListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity">
-            </meta-data></activity>
-        <activity android:name=".LicenceScreen" android:label="Licence Screen"
-            android:parentActivityName=".StartActivity">
+                android:value=".activity.CategoryListActivity">
+            </meta-data>
+        </activity>
+
+        <activity android:name=".activity.LicenceScreenActivity" android:label="Licence Screen"
+            android:parentActivityName=".activity.StartActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".StartActivity">
-            </meta-data></activity>
-        <activity android:name=".DetailsActivity" />
+                android:value=".activity.StartActivity">
+            </meta-data>
+        </activity>
+
         <activity
-            android:name=".SwipeActivity"
+            android:name=".activity.ProductDetailActivity"
             android:screenOrientation="landscape"
-            android:parentActivityName=".GaleriOlusturmaActivity">
+            android:parentActivityName=".activity.ProductListActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".GaleriOlusturmaActivity">
+                android:value=".activity.ProductListActivity">
             </meta-data>
         </activity>
     </application>

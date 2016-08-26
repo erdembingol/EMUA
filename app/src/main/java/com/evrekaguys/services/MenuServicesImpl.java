@@ -3,18 +3,14 @@ package com.evrekaguys.services;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
-import android.os.Environment;
 
-import com.evrekaguys.myapplication.Category;
-import com.evrekaguys.myapplication.Company;
-import com.evrekaguys.myapplication.DBHelper;
-import com.evrekaguys.myapplication.Product;
+import com.evrekaguys.myapplication.model.Category;
+import com.evrekaguys.myapplication.model.Company;
+import com.evrekaguys.myapplication.db.DBHelper;
+import com.evrekaguys.myapplication.model.Product;
 import com.evrekaguys.utils.MenuUtils;
 
 import org.ksoap2.SoapEnvelope;
-import org.ksoap2.SoapFault;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
 import org.ksoap2.serialization.SoapSerializationEnvelope;

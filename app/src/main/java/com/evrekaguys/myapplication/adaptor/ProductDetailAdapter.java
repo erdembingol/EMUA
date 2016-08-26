@@ -1,4 +1,4 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.myapplication.adaptor;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.evrekaguys.myapplication.R;
+import com.evrekaguys.myapplication.model.Company;
+import com.evrekaguys.myapplication.model.Product;
 import com.evrekaguys.services.MenuServices;
 import com.evrekaguys.services.MenuServicesImpl;
 import com.evrekaguys.utils.MenuUtils;
@@ -20,10 +23,7 @@ import com.evrekaguys.utils.MenuUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by HP A4 on 29.5.2016.
- */
-public class ImageAdapter extends PagerAdapter {
+public class ProductDetailAdapter extends PagerAdapter {
 
     private final Activity context;
     private final ArrayList<Product> productList;
@@ -40,7 +40,7 @@ public class ImageAdapter extends PagerAdapter {
             R.drawable.image_2,
             R.drawable.image_3
     };
-    ImageAdapter(Activity context, ArrayList<Product> productList){
+    public ProductDetailAdapter(Activity context, ArrayList<Product> productList){
         this.context=context;
         this.productList = productList;
     }
@@ -58,7 +58,7 @@ public class ImageAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
        // ImageView imageView = new ImageView(context);
         LayoutInflater inflater=context.getLayoutInflater();
-        View rowView=inflater.inflate(R.layout.swipe_detail_format, null,true);
+        View rowView=inflater.inflate(R.layout.product_detail_format, null,true);
         Company company = menuServices.getCompanyFromDB(context);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.urunResim);
         int padding = context.getResources().getDimensionPixelSize(R.dimen.padding_medium);
@@ -80,16 +80,16 @@ public class ImageAdapter extends PagerAdapter {
                 urunDetay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // custom dialog
+                        // description_in_product_detail dialog
                         final Dialog dialog = new Dialog(context, R.style.ThemeDialogCustom);
-                        dialog.setContentView(R.layout.custom);
+                        dialog.setContentView(R.layout.description_in_product_detail);
                         dialog.setTitle("Açıklama");
 
-                        // set the custom dialog components - text, image and butto
+                        // set the description_in_product_detail dialog components - text, image and butto
                         TextView text = (TextView) dialog.findViewById(R.id.fullDetail);
                         text.setText(product.getProductDetail());
                         Button dialogButton = (Button) dialog.findViewById(R.id.dialogButtonOK);
-                        // if button is clicked, close the custom dialog
+                        // if button is clicked, close the description_in_product_detail dialog
                         dialogButton.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {

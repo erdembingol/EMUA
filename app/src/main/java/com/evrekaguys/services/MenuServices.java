@@ -2,9 +2,9 @@ package com.evrekaguys.services;
 
 import android.content.Context;
 
-import com.evrekaguys.myapplication.Category;
-import com.evrekaguys.myapplication.Company;
-import com.evrekaguys.myapplication.Product;
+import com.evrekaguys.myapplication.model.Category;
+import com.evrekaguys.myapplication.model.Company;
+import com.evrekaguys.myapplication.model.Product;
 
 import java.util.List;
 

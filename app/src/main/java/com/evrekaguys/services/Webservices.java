@@ -1,9 +1,10 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.services;
 
 import android.content.Context;
 
-import com.evrekaguys.services.MenuServices;
-import com.evrekaguys.services.MenuServicesImpl;
+import com.evrekaguys.myapplication.model.Product;
+import com.evrekaguys.myapplication.db.DBHelper;
+import com.evrekaguys.myapplication.model.Category;
 
 import java.util.List;
 

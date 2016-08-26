@@ -1,4 +1,4 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.myapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,21 +8,26 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
+import com.evrekaguys.myapplication.R;
+import com.evrekaguys.myapplication.adaptor.ProductListAdapter;
+import com.evrekaguys.myapplication.model.Category;
+import com.evrekaguys.myapplication.model.ImageItem;
+import com.evrekaguys.myapplication.model.Product;
 import com.evrekaguys.utils.MenuUtils;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GaleriOlusturmaActivity extends AppCompatActivity implements Serializable{
+public class ProductListActivity extends AppCompatActivity implements Serializable{
 	private GridView gridView;
-	private GridViewAdapter gridAdapter;
+	private ProductListAdapter gridAdapter;
 	private ArrayList<Product> productListForSwipe = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.main);
+		setContentView(R.layout.activity_product_list);
 
 		getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
@@ -31,20 +36,20 @@ public class GaleriOlusturmaActivity extends AppCompatActivity implements Serial
 		final ArrayList<Product> productList = (ArrayList<Product>) getIntent().getSerializableExtra("productList");
 		setTitle(categoryName);
 		gridView = (GridView) findViewById(R.id.gridView);
-		gridAdapter = new GridViewAdapter(this, R.layout.grid_item_layout, getData(productList,  selectedCategory));
+		gridAdapter = new ProductListAdapter(this, R.layout.grid_item_in_product_list, getData(productList,  selectedCategory));
 		gridView.setAdapter(gridAdapter);
 		gridView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				ImageItem item = (ImageItem) parent.getItemAtPosition(position);
 				//Create intent
-				Intent intent = new Intent(GaleriOlusturmaActivity.this, SwipeActivity.class);
+				Intent intent = new Intent(ProductListActivity.this, ProductDetailActivity.class);
 				intent.putExtra("productList",productListForSwipe);
 				intent.putExtra("title", item.getTitle());
 				//intent.putExtra("image", item.getImage());
 				intent.putExtra("selected",position);
 
-				//Start details activity
+				//StartActivity details activity
 				startActivityForResult(intent, 0);
 
 			}

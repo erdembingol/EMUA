@@ -1,4 +1,4 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.myapplication.adaptor;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,18 +9,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.evrekaguys.myapplication.R;
+import com.evrekaguys.myapplication.model.ImageItem;
+
 import java.util.ArrayList;
 
-/**
- * Created by HP A4 on 28.5.2016.
- */
-public class GridViewAdapter extends ArrayAdapter {
+public class ProductListAdapter extends ArrayAdapter {
 
     private Context context;
     private int layoutResourceId;
     private ArrayList data = new ArrayList();
 
-    public GridViewAdapter(Context context, int layoutResourceId, ArrayList data) {
+    public ProductListAdapter(Context context, int layoutResourceId, ArrayList data) {
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;

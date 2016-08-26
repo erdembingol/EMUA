@@ -1,6 +1,8 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.services;
 
 import android.content.Context;
+
+import com.evrekaguys.services.Webservices;
 
 /**
  * Created by HP A4 on 30.7.2016.

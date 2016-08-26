@@ -1,4 +1,4 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.myapplication.activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +13,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.evrekaguys.myapplication.R;
+import com.evrekaguys.myapplication.adaptor.CustomListAdapter;
+import com.evrekaguys.myapplication.db.DBHelper;
+import com.evrekaguys.myapplication.model.Category;
+import com.evrekaguys.myapplication.model.Product;
 import com.evrekaguys.services.MenuServices;
 import com.evrekaguys.services.MenuServicesImpl;
+import com.evrekaguys.services.MenuThread;
+import com.evrekaguys.services.Services;
 import com.evrekaguys.utils.MenuUtils;
 
 import java.io.Serializable;
@@ -23,7 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity implements Serializable{
+public class CategoryListActivity extends AppCompatActivity implements Serializable{
 
     ListView list;
     List<Map<String,Object>> itemname = new ArrayList<Map<String,Object>>();
@@ -35,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_category_list);
 
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
 
@@ -105,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
                 */
                     String categoryName = parent.getItemAtPosition(position).toString();
                     Category selectedCategory = finalCategoryList.get(position);
-                    Intent newActivity = new Intent(MainActivity.this, GaleriOlusturmaActivity.class);
+                    Intent newActivity = new Intent(CategoryListActivity.this, ProductListActivity.class);
                     newActivity.putExtra("categoryName", categoryName);
                     newActivity.putExtra("productList",finalProductList);
                     newActivity.putExtra("selectedCategory",selectedCategory);
@@ -118,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(MainActivity.this, StartActivity.class);
+        Intent intent = new Intent(CategoryListActivity.this, StartActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }

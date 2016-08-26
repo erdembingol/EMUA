@@ -1,4 +1,4 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.myapplication.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,14 +6,15 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import com.evrekaguys.myapplication.model.Product;
+import com.evrekaguys.myapplication.model.Category;
+import com.evrekaguys.myapplication.model.Company;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by HP A4 on 5.6.2016.
- */
 public class DBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "emuamenuDB";
     private static final String TABLE_CATEGORIES = "categories";
