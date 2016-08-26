@@ -1,10 +1,7 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.services;
 
 import android.content.Context;
 
-/**
- * Created by HP A4 on 30.7.2016.
- */
 public class MenuThread extends Thread{
 
     private Context c;
@@ -19,7 +16,6 @@ public class MenuThread extends Thread{
     public void run() {
         Webservices webservices = new Webservices();
         webservices.doInBackgroundForGetMenu(c);
-
     }
 
 }

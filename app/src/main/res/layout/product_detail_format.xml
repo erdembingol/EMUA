@@ -20,8 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="fitXY"
-            android:background="@drawable/rounded_corner"
-            />
+            android:background="@drawable/rounded_corner" />
 
     </LinearLayout>
 
@@ -49,8 +48,7 @@
                 android:text="TextView"
                 android:layout_toRightOf="@+id/urunResim"
                 android:textSize="25sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -74,8 +72,7 @@
                 android:layout_toRightOf="@+id/urunResim"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:clickable="true"
-                />
+                android:clickable="true" />
 
             </LinearLayout>
 
@@ -98,8 +95,7 @@
                 android:layout_below="@+id/urunDetay"
                 android:layout_toRightOf="@+id/urunResim"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
             </LinearLayout>
 
 
@@ -122,8 +118,7 @@
                 android:layout_below="@+id/urunFiyat"
                 android:layout_toRightOf="@+id/urunResim"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                />
+                android:textStyle="bold" />
 
         </LinearLayout>
 
@@ -145,6 +140,7 @@
                 android:layout_toRightOf="@+id/urunResim"
                 android:scaleType="fitXY"
                 android:background="#00555555"/>
+
             </LinearLayout>
 
     </LinearLayout>

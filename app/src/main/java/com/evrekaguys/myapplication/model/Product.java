@@ -1,12 +1,9 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.myapplication.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-/**
- * Created by HP A4 on 30.5.2016.
- */
 public class Product implements Serializable {
     private Integer productID;
     private String productName;
@@ -18,9 +15,7 @@ public class Product implements Serializable {
     private Date createDate;
     private Integer categoryID;
 
-    public Product(){
-
-    }
+    public Product(){}
 
     public Product(Integer productID, String productName, String productImageUrl, Integer order, String productDetail, BigDecimal productPrice, Date createDate, Integer categoryID){
         this.setProductID(productID);

@@ -1,11 +1,8 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.myapplication.model;
 
 import java.io.Serializable;
 import java.util.Date;
 
-/**
- * Created by HP A4 on 30.5.2016.
- */
 public class Company implements Serializable {
     private Integer companyID;
     private String companyName;
@@ -15,9 +12,7 @@ public class Company implements Serializable {
     private String phone;
     private Date createDate;
 
-    public Company(){
-
-    }
+    public Company(){}
 
     public Company(Integer companyID, String companyName, String companyLogoUrl, String adress, String mail, String phone, Date createDate){
         this.setCompanyID(companyID);

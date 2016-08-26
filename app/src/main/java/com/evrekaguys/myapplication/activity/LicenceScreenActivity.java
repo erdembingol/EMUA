@@ -1,4 +1,4 @@
-package com.evrekaguys.myapplication;
+package com.evrekaguys.myapplication.activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,10 +11,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.evrekaguys.myapplication.R;
 import com.evrekaguys.services.MenuServices;
 import com.evrekaguys.services.MenuServicesImpl;
 
-public class LicenceScreen extends AppCompatActivity {
+public class LicenceScreenActivity extends AppCompatActivity {
 
     private static String licenceCode = "";
     private static boolean isLicenced;
@@ -39,7 +40,7 @@ public class LicenceScreen extends AppCompatActivity {
                     AsyncCallWS task = new AsyncCallWS();
                     task.execute();
                 } else {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreen.this);
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreenActivity.this);
                     dialog.setMessage("Please enter Licence Code...")
                             .setCancelable(false)
                             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -82,13 +83,13 @@ public class LicenceScreen extends AppCompatActivity {
                     editor.commit();
                 }
 
-                AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreen.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreenActivity.this);
                 dialog.setMessage("Licence is activated ...")
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(LicenceScreen.this, MainActivity.class);
+                                Intent intent = new Intent(LicenceScreenActivity.this, CategoryListActivity.class);
                                 startActivity(intent);
                             }
                         });
@@ -96,7 +97,7 @@ public class LicenceScreen extends AppCompatActivity {
                 alert.setTitle("Info !!!");
                 alert.show();
             } else {
-                AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreen.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreenActivity.this);
                 dialog.setMessage("Licence Code is invalid ...")
                         .setCancelable(false)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
