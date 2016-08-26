@@ -10,9 +10,7 @@ public class Category implements Serializable {
     private Integer order;
     private Date createDate;
 
-    public Category(){
-
-    }
+    public Category(){}
 
     public Category(Integer categoryID, String categoryName, String categoryImageUrl, Integer order, Date createDate){
         this.setCategoryID(categoryID);

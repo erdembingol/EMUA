@@ -32,13 +32,14 @@ public class ProductListAdapter extends ArrayAdapter {
         View row = convertView;
         ViewHolder holder = null;
 
-
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(layoutResourceId, parent, false);
+
             holder = new ViewHolder();
             holder.imageTitle = (TextView) row.findViewById(R.id.text);
             holder.image = (ImageView) row.findViewById(R.id.image);
+
             row.setTag(holder);
         } else {
             holder = (ViewHolder) row.getTag();
@@ -47,6 +48,7 @@ public class ProductListAdapter extends ArrayAdapter {
         ImageItem item = (ImageItem) data.get(position);
         holder.imageTitle.setText(item.getTitle());
         holder.image.setImageBitmap(item.getImage());
+
         return row;
     }
 

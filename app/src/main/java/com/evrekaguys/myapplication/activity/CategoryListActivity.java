@@ -50,13 +50,14 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
         SharedPreferences settings = getSharedPreferences("SQL", 0);
         boolean firstTime = settings.getBoolean("firstTime", true);
         List<Category> categories = null;
+
         try {
             if (MenuUtils.InternetKontrol((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
-              //menuThread = new MenuThread(getApplicationContext());
+                //menuThread = new MenuThread(getApplicationContext());
                 //menuThread.start();
-                  AsyncTask<Context, String, List<?>> downloadCategoryListToLocalDB = new Services("downloadCategoryListToLocalDB").execute(getApplicationContext());
-                  //downloadCategoryListToLocalDB.cancel(true);
-               // new Services("downloadProductListToLocalDB").execute(getApplicationContext());
+                AsyncTask<Context, String, List<?>> downloadCategoryListToLocalDB = new Services("downloadCategoryListToLocalDB").execute(getApplicationContext());
+                //downloadCategoryListToLocalDB.cancel(true);
+                // new Services("downloadProductListToLocalDB").execute(getApplicationContext());
             }
 
             if (firstTime) {
@@ -73,14 +74,16 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
         try {
             categoryList = menuServices.getCategoryListFromDB(getApplicationContext());
             productList = menuServices.getProductListFromDB(getApplicationContext());
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
 
         for (int i = 0; i < categoryList.size(); i++) {
-                Category category = categoryList.get(i);
-                Map<String,Object> categoryMap = new HashMap<String, Object>();
-                categoryMap.put("categoryName", category.getCategoryName());
+            Category category = categoryList.get(i);
+
+            Map<String,Object> categoryMap = new HashMap<String, Object>();
+
+            categoryMap.put("categoryName", category.getCategoryName());
             itemName.add(category.getCategoryName());
+
             int productNumber =0;
             for(int j=0;j<productList.size();j++){
                 if(category.getCategoryID().equals(productList.get(j).getCategoryID())){
@@ -89,36 +92,37 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
             }
             categoryMap.put("productNumber",productNumber);
             itemName.set(i, itemName.get(i).concat("/-/"+productNumber));
-                itemname.add(categoryMap);
-                imgid.add(MenuUtils.loadImageSpecificLocation(categoryList.get(i).getCategoryImageUrl()));
-            }
+            itemname.add(categoryMap);
 
-
+            imgid.add(MenuUtils.loadImageSpecificLocation(categoryList.get(i).getCategoryImageUrl()));
+        }
 
         CustomListAdapter adapter = new CustomListAdapter(this, itemName, imgid);
-            list = (ListView) findViewById(R.id.list);
-            list.setAdapter(adapter);
+        list = (ListView) findViewById(R.id.list);
+        list.setAdapter(adapter);
 
         final ArrayList<Product> finalProductList = (ArrayList<Product>) productList;
         final List<Category> finalCategoryList = categoryList;
+
         list.setOnItemClickListener(new OnItemClickListener() {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
                                         int position, long id) {
-                    // TODO Auto-generated method stub
-                /*String Slecteditem= itemname[+position];
-                Toast.makeText(getApplicationContext(), Slecteditem, Toast.LENGTH_SHORT).show();
+                // TODO Auto-generated method stub
+                /*
+                    String Slecteditem= itemname[+position];
+                    Toast.makeText(getApplicationContext(), Slecteditem, Toast.LENGTH_SHORT).show();
                 */
-                    String categoryName = parent.getItemAtPosition(position).toString();
-                    Category selectedCategory = finalCategoryList.get(position);
-                    Intent newActivity = new Intent(CategoryListActivity.this, ProductListActivity.class);
-                    newActivity.putExtra("categoryName", categoryName);
-                    newActivity.putExtra("productList",finalProductList);
-                    newActivity.putExtra("selectedCategory",selectedCategory);
-                    //newActivity.putParcelableArrayListExtra("productList", (ArrayList<? extends Parcelable>) finalProductList);
+                String categoryName = parent.getItemAtPosition(position).toString();
+                Category selectedCategory = finalCategoryList.get(position);
+                Intent newActivity = new Intent(CategoryListActivity.this, ProductListActivity.class);
+                newActivity.putExtra("categoryName", categoryName);
+                newActivity.putExtra("productList",finalProductList);
+                newActivity.putExtra("selectedCategory",selectedCategory);
+                //newActivity.putParcelableArrayListExtra("productList", (ArrayList<? extends Parcelable>) finalProductList);
 
-                    startActivityForResult(newActivity, 0);
+                startActivityForResult(newActivity, 0);
                 }
             });
         }
@@ -127,6 +131,7 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
     public void onBackPressed() {
         Intent intent = new Intent(CategoryListActivity.this, StartActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
         startActivity(intent);
     }
 }

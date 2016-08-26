@@ -15,9 +15,7 @@ public class Product implements Serializable {
     private Date createDate;
     private Integer categoryID;
 
-    public Product(){
-
-    }
+    public Product(){}
 
     public Product(Integer productID, String productName, String productImageUrl, Integer order, String productDetail, BigDecimal productPrice, Date createDate, Integer categoryID){
         this.setProductID(productID);

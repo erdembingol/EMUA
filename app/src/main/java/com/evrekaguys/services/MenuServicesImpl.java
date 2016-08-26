@@ -30,14 +30,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * Created by HP A4 on 18.6.2016.
- */
 public class MenuServicesImpl implements MenuServices {
     @Override
     public Company getCompanyFromDB(Context c) {
         DBHelper dbHelper = new DBHelper(c);
         Company company = dbHelper.getCompany();
+
         return company;
     }
 
@@ -46,6 +44,7 @@ public class MenuServicesImpl implements MenuServices {
         SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_CHECK_LICENCE_CODE);
         request.addProperty("MAC", MenuUtils.getMacAddress(c));
         request.addProperty("LicenceCode",licenceCode);
+
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.dotNet = true;
         envelope.setOutputSoapObject(request);
@@ -57,8 +56,8 @@ public class MenuServicesImpl implements MenuServices {
 
             //Get the response
             SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
-            return Boolean.valueOf(response.toString());
 
+            return Boolean.valueOf(response.toString());
         } catch (Exception e) {
             return false;
         }
@@ -69,101 +68,100 @@ public class MenuServicesImpl implements MenuServices {
     public Company getCompany(Context c) {
         SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_GET_COMPANY);
         request.addProperty("MAC",MenuUtils.getMacAddress(c));
-        SoapObject response = connectToWebService(request,WebServiceConstants.SOAP_ACTION_GET_COMPANY);
+
         Company company = new Company();
         Bitmap bitmap = null;
 
-            Object property = response.getProperty(0);
-            if(property instanceof SoapObject) {
-                SoapObject companyObj = (SoapObject) property;
+        SoapObject response = connectToWebService(request,WebServiceConstants.SOAP_ACTION_GET_COMPANY);
+        Object property = response.getProperty(0);
+        if(property instanceof SoapObject) {
+            SoapObject companyObj = (SoapObject) property;
 
-                Integer companyID = Integer.parseInt(companyObj.getProperty("Company_ID").toString());
-                String companyName = companyObj.getProperty("Name").toString();
-                String logoUrl = companyObj.getProperty("LogoUrl").toString();
-                String logoUrlName = companyObj.getProperty("Url").toString();
-                String adress = companyObj.getProperty("Adress").toString();
-                String mail = companyObj.getProperty("Mail").toString();
-                String phone = companyObj.getProperty("Phone").toString();
-                Date createdDate = new Date();
-                try {
-                    createdDate = new SimpleDateFormat().parse(companyObj.getProperty("CreatedDate").toString());
-                } catch (ParseException e) {
-                    createdDate = new Date();
-                }
-
-                // GET CATEGORYID
-                company.setCompanyID(companyID);
-
-                // GET CATEGORYNAME
-                company.setCompanyName(companyName);
-
-                // GET IMAGEURL AND SAVE IMAGE
-                String[] imageArray = logoUrl.split("/");
-                String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
-                company.setCompanyLogoUrl(c.getExternalFilesDir(null) + "/EmuaTablet/"+imageFileName);
-                try {
-                    bitmap = null;
-                    InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(logoUrl,"UTF-8").replace("+", "%20")).openStream();
-                    bitmap = BitmapFactory.decodeStream(inputStream);
-                    inputStream.close();
-                } catch (IOException e) {
-                }
-                createDirectoryAndSaveFile(c, bitmap, imageFileName);
-
-                // GET CATEGORY ORDER
-                company.setAdress(adress);
-
-                // GET COMPANY MAIL
-                company.setMail(mail);
-
-                //GET COMPANY PHONE
-                company.setPhone(phone);
-
-                // GET CREATED DATE
-
-                company.setCreateDate(createdDate);
-
+            Integer companyID = Integer.parseInt(companyObj.getProperty("Company_ID").toString());
+            String companyName = companyObj.getProperty("Name").toString();
+            String logoUrl = companyObj.getProperty("LogoUrl").toString();
+            String logoUrlName = companyObj.getProperty("Url").toString();
+            String adress = companyObj.getProperty("Adress").toString();
+            String mail = companyObj.getProperty("Mail").toString();
+            String phone = companyObj.getProperty("Phone").toString();
+            Date createdDate = new Date();
+            try {
+                createdDate = new SimpleDateFormat().parse(companyObj.getProperty("CreatedDate").toString());
+            } catch (ParseException e) {
+                createdDate = new Date();
             }
+
+            // GET CATEGORYID
+            company.setCompanyID(companyID);
+
+            // GET CATEGORYNAME
+            company.setCompanyName(companyName);
+
+            // GET IMAGEURL AND SAVE IMAGE
+            String[] imageArray = logoUrl.split("/");
+            String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
+            company.setCompanyLogoUrl(c.getExternalFilesDir(null) + "/EmuaTablet/"+imageFileName);
+            try {
+                bitmap = null;
+                InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(logoUrl,"UTF-8").replace("+", "%20")).openStream();
+                bitmap = BitmapFactory.decodeStream(inputStream);
+
+                inputStream.close();
+            } catch (IOException e) {}
+
+            createDirectoryAndSaveFile(c, bitmap, imageFileName);
+
+            // GET CATEGORY ORDER
+            company.setAdress(adress);
+
+            // GET COMPANY MAIL
+            company.setMail(mail);
+
+            //GET COMPANY PHONE
+            company.setPhone(phone);
+
+            // GET CREATED DATE
+            company.setCreateDate(createdDate);
+
+        }
 
         return company;
     }
 
     private SoapObject connectToWebService(SoapObject request, String soapAction){
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        envelope.setOutputSoapObject(request);
 
-            SoapObject response = null;
-            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-            envelope.dotNet = true;
-            envelope.setOutputSoapObject(request);
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(WebServiceConstants.URL);
+        androidHttpTransport.debug = true;
 
-            HttpTransportSE androidHttpTransport = new HttpTransportSE(WebServiceConstants.URL);
-            androidHttpTransport.debug = true;
-
+        SoapObject response = null;
         try {
             androidHttpTransport.call(soapAction, envelope);
             response = (SoapObject) envelope.getResponse();
         } catch (IOException e) {
-
         } catch (XmlPullParserException e) {
-
         }
 
         return response;
-
     }
 
     @Override
     public List<Category> getCategoryList(Context c) {
         SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_GET_CATEGORY);
         request.addProperty("MAC",MenuUtils.getMacAddress(c));
-        SoapObject response = connectToWebService(request,WebServiceConstants.SOAP_ACTION_GET_CATEGORY);
+
         Category category = new Category();
         List<Category> categories = new ArrayList<Category>();
         Bitmap bitmap = null;
 
-        for(int i=0; i<response.getPropertyCount();i++) {
+        SoapObject response = connectToWebService(request,WebServiceConstants.SOAP_ACTION_GET_CATEGORY);
+        for (int i=0; i<response.getPropertyCount();i++) {
             category = new Category();
             Object property = response.getProperty(i);
-            if(property instanceof  SoapObject) {
+
+            if (property instanceof  SoapObject) {
                 SoapObject categoryObj = (SoapObject) property;
 
                 Integer categoryID = Integer.parseInt(categoryObj.getProperty("Category_ID").toString());
@@ -192,22 +190,22 @@ public class MenuServicesImpl implements MenuServices {
                     bitmap = null;
                     InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(imageUrl,"UTF-8").replace("+", "%20")).openStream();
                     bitmap = BitmapFactory.decodeStream(inputStream);
+
                     inputStream.close();
-                } catch (IOException e) {
-                }
+                } catch (IOException e) {}
+
                 createDirectoryAndSaveFile(c,bitmap, imageFileName);
 
                 // GET CATEGORY ORDER
                 category.setOrder(categoryOrder);
 
                 // GET CREATED DATE
-
                 category.setCreateDate(createdDate);
-
             }
 
             categories.add(category);
         }
+
         return categories;
     }
 
@@ -215,13 +213,16 @@ public class MenuServicesImpl implements MenuServices {
     public List<Product> getProductList(Context c) {
         SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_GET_PRODUCT);
         request.addProperty("MAC",MenuUtils.getMacAddress(c));
-        SoapObject response = connectToWebService(request,WebServiceConstants.SOAP_ACTION_GET_PRODUCT);
+
         Product product = new Product();
         List<Product> products = new ArrayList<Product>();
         Bitmap bitmap = null;
+
+        SoapObject response = connectToWebService(request,WebServiceConstants.SOAP_ACTION_GET_PRODUCT);
         for(int i=0; i<response.getPropertyCount();i++) {
             product = new Product();
             Object property = response.getProperty(i);
+
             if(property instanceof  SoapObject) {
                 SoapObject productObj = (SoapObject) property;
 
@@ -235,6 +236,7 @@ public class MenuServicesImpl implements MenuServices {
                 BigDecimal price = BigDecimal.valueOf(Double.parseDouble(productObj.getProperty("Price").toString()));
                 Integer categoryID = Integer.parseInt(productObj.getProperty("CategorySecondID").toString());
                 Date createdDate = new Date();
+
                 try {
                     createdDate = new SimpleDateFormat().parse(productObj.getProperty("CreatedDate").toString());
                 } catch (ParseException e) {
@@ -249,12 +251,14 @@ public class MenuServicesImpl implements MenuServices {
 
                 String[] imageArray= imageUrl.split("/");
                 String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
+
                 // GET IMAGEURL AND SAVE IMAGE
                 product.setProductImageUrl(c.getExternalFilesDir(null) + "/EmuaTablet/"+imageFileName);
                 try {
                     bitmap = null;
                     InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(imageUrl,"UTF-8").replace("+", "%20")).openStream();
                     bitmap = BitmapFactory.decodeStream(inputStream);
+
                     inputStream.close();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -266,29 +270,24 @@ public class MenuServicesImpl implements MenuServices {
                 product.setOrder(productOrder);
 
                 // GET CREATED DATE
-
                 product.setCreateDate(createdDate);
 
                 // GET DETAIL
-
                 product.setProductDetail(detail);
 
                 // GET SERVICE TIME
-
                 product.setServiceTime(serviceTime);
 
                 // GET PRICE
-
                 product.setProductPrice(price);
 
                 // GET CATEGORY ID
-
                 product.setCategoryID(categoryID);
-
             }
 
             products.add(product);
         }
+
         return products;
     }
 
@@ -322,9 +321,11 @@ public class MenuServicesImpl implements MenuServices {
         if (file.exists()) {
             file.delete();
         }
+
         try {
             FileOutputStream out = new FileOutputStream(file);
             imageToSave.compress(Bitmap.CompressFormat.JPEG, 100, out);
+
             out.flush();
             out.close();
         } catch (Exception e) {

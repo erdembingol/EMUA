@@ -12,9 +12,7 @@ public class Company implements Serializable {
     private String phone;
     private Date createDate;
 
-    public Company(){
-
-    }
+    public Company(){}
 
     public Company(Integer companyID, String companyName, String companyLogoUrl, String adress, String mail, String phone, Date createDate){
         this.setCompanyID(companyID);

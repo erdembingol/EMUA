@@ -8,9 +8,6 @@ import com.evrekaguys.myapplication.model.Product;
 
 import java.util.List;
 
-/**
- * Created by HP A4 on 18.6.2016.
- */
 public interface MenuServices {
     public List<Category> getCategoryList(Context c);
     public List<Product> getProductList(Context c);

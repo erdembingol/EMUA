@@ -32,10 +32,12 @@ public class StartActivity extends AppCompatActivity {
         if (isLicenced()) {
             Intent intent = new Intent(StartActivity.this, CategoryListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
             startActivity(intent);
         } else {
             Intent intent = new Intent(StartActivity.this, LicenceScreenActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
             startActivity(intent);
         }
     }
