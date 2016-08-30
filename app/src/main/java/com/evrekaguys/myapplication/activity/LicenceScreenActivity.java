@@ -41,16 +41,16 @@ public class LicenceScreenActivity extends AppCompatActivity {
                     task.execute();
                 } else {
                     AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreenActivity.this);
-                    dialog.setMessage("Please enter Licence Code...")
+                    dialog.setMessage("Lütfen Geçerli Bir Lisans Kodu Giriniz!")
                             .setCancelable(false)
-                            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            .setPositiveButton("TAMAM", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     dialog.cancel();
                                 }
                             });
                     AlertDialog alert = dialog.create();
-                    alert.setTitle("Warning !!!");
+                    alert.setTitle("Uyarı");
                     alert.show();
                 }
             }
@@ -84,9 +84,9 @@ public class LicenceScreenActivity extends AppCompatActivity {
                 }
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreenActivity.this);
-                dialog.setMessage("Licence is activated ...")
+                dialog.setMessage("Ürününüz başarıyla aktive edildi.")
                         .setCancelable(false)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("TAMAM", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(LicenceScreenActivity.this, CategoryListActivity.class);
@@ -94,20 +94,20 @@ public class LicenceScreenActivity extends AppCompatActivity {
                             }
                         });
                 AlertDialog alert = dialog.create();
-                alert.setTitle("Info !!!");
+                alert.setTitle("Bilgi");
                 alert.show();
             } else {
                 AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreenActivity.this);
-                dialog.setMessage("Licence Code is invalid ...")
+                dialog.setMessage("Geçersiz bir lisans kodu girişi yapıldı!")
                         .setCancelable(false)
-                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        .setPositiveButton("TAMAM", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 dialog.cancel();
                             }
                         });
                 AlertDialog alert = dialog.create();
-                alert.setTitle("Warning !!!");
+                alert.setTitle("Uyarı");
                 alert.show();
             }
         }
