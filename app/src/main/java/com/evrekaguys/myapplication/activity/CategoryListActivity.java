@@ -11,10 +11,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
+import android.widget.GridView;
 
 import com.evrekaguys.myapplication.R;
-import com.evrekaguys.myapplication.adaptor.CustomListAdapter;
+import com.evrekaguys.myapplication.adaptor.CategoryListAdapter;
 import com.evrekaguys.myapplication.db.DBHelper;
 import com.evrekaguys.myapplication.model.Category;
 import com.evrekaguys.myapplication.model.Company;
@@ -29,7 +29,7 @@ import java.util.List;
 
 public class CategoryListActivity extends AppCompatActivity implements Serializable{
 
-    ListView list;
+    GridView categoriesGridView;
     List<String> itemName = new ArrayList<String>();
     List<Bitmap> imgid = new ArrayList<Bitmap>();
     ProgressDialog dialog;
@@ -92,14 +92,14 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
             itemName.set(i, itemName.get(i).concat("/-/"+productNumber));
             imgid.add(MenuUtils.loadImageSpecificLocation(categoryList.get(i).getCategoryImageUrl()));
         }
-        CustomListAdapter adapter = new CustomListAdapter(CategoryListActivity.this, itemName, imgid);
-        list = (ListView) findViewById(R.id.categoryList);
-        list.setAdapter(adapter);
+        CategoryListAdapter adapter = new CategoryListAdapter(CategoryListActivity.this, itemName, imgid);
+        categoriesGridView = (GridView) findViewById(R.id.gridView);
+        categoriesGridView.setAdapter(adapter);
 
         final ArrayList<Product> finalProductList = (ArrayList<Product>) productList;
         final List<Category> finalCategoryList = categoryList;
 
-        list.setOnItemClickListener(new OnItemClickListener() {
+        categoriesGridView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -156,6 +156,7 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
         protected void onPreExecute() {
             dialog = new ProgressDialog(CategoryListActivity.this);
             dialog.setMessage("Güncel ürün bilgileri indiriliyor. Lütfen bekleyiniz...");
+            dialog.setCancelable(false);
             dialog.setIndeterminate(true);
             dialog.show();
         }
