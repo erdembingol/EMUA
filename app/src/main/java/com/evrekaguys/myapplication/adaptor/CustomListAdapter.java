@@ -16,14 +16,11 @@ import java.util.List;
 public class CustomListAdapter extends ArrayAdapter<String> {
 
 	private final Activity context;
-	//private final List<Map<String,Object>> itemname;
 	private final List<String> itemname;
 	private final List<Bitmap> imgid;
 	
-	public CustomListAdapter(Activity context, List<String> itemname /*List<Map<String,Object>> itemname*/, List<Bitmap> imgid) {
-		//super(context, R.layout.mylist, itemname);
-		// TODO Auto-generated constructor stub
-		super(context, R.layout.mylist,itemname);
+	public CustomListAdapter(Activity context, List<String> itemname, List<Bitmap> imgid) {
+		super(context, R.layout.product_list_product_format,itemname);
 
 		this.context = context;
 		this.itemname = itemname;
@@ -32,11 +29,11 @@ public class CustomListAdapter extends ArrayAdapter<String> {
 	
 	public View getView(int position,View view,ViewGroup parent) {
 		LayoutInflater inflater = context.getLayoutInflater();
-		View rowView = inflater.inflate(R.layout.mylist, null,true);
+		View rowView = inflater.inflate(R.layout.product_list_product_format, null,true);
 
 		String [] categoryInfo = itemname.get(position).split("/-/");
 		TextView txtTitle = (TextView) rowView.findViewById(R.id.item);
-		txtTitle.setText(categoryInfo[0]);//get("categoryName").toString());
+		txtTitle.setText(categoryInfo[0]);
 
 		ImageView imageView = (ImageView) rowView.findViewById(R.id.icon);
 		imageView.setImageBitmap(imgid.get(position));

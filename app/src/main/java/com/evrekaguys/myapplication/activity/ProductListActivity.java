@@ -44,21 +44,16 @@ public class ProductListActivity extends AppCompatActivity implements Serializab
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				ImageItem item = (ImageItem) parent.getItemAtPosition(position);
-
-				//Create intent
 				Intent intent = new Intent(ProductListActivity.this, ProductDetailActivity.class);
 				intent.putExtra("productList",productListForSwipe);
 				intent.putExtra("title", item.getTitle());
-				//intent.putExtra("image", item.getImage());
 				intent.putExtra("selected",position);
-
-				//StartActivity details activity
 				startActivityForResult(intent, 0);
 			}
 		});
 	}
 
-	// Prepare some dummy data for gridview
+
 	private ArrayList<ImageItem> getData(List<Product> productList, Category selectedCategory) {
 		List<Product> productListByCategory = new ArrayList<Product>();
 		for(int i=0;i<productList.size();i++) {
@@ -76,14 +71,6 @@ public class ProductListActivity extends AppCompatActivity implements Serializab
 			imageItem.setImage((MenuUtils.loadImageSpecificLocation(productListByCategory.get(j).getProductImageUrl())));
 			imageItems.add(imageItem);
 		}
-
-		/*
-			TypedArray imgs = getResources().obtainTypedArray(R.array.image_ids);
-			for (int i = 0; i < imgs.length(); i++) {
-				Bitmap bitmap = BitmapFactory.decodeResource(getResources(), imgs.getResourceId(i, -1));
-				imageItems.add(new ImageItem(bitmap, "Image#" + i));
-			}
-		*/
 
 		return imageItems;
 	}

@@ -1,15 +1,3 @@
 <resources>
     <string name="app_name">EMUA TABLET MENÜ</string>
-    <string-array name="image_ids">
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-        <item>@drawable/image_3</item>
-        <item>@drawable/image_1</item>
-        <item>@drawable/image_2</item>
-
-    </string-array>
-
 </resources>
