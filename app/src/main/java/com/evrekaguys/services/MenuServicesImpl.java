@@ -31,12 +31,29 @@ import java.util.Date;
 import java.util.List;
 
 public class MenuServicesImpl implements MenuServices {
+
     @Override
     public Company getCompanyFromDB(Context c) {
         DBHelper dbHelper = new DBHelper(c);
         Company company = dbHelper.getCompany();
 
         return company;
+    }
+
+    @Override
+    public List<Category> getCategoryListFromDB(Context c) {
+        DBHelper dbHelper = new DBHelper(c);
+        List<Category> categoryList = dbHelper.getAllCategories();
+
+        return categoryList;
+    }
+
+    @Override
+    public List<Product> getProductListFromDB(Context c) {
+        DBHelper dbHelper = new DBHelper(c);
+        List<Product> productList = dbHelper.getAllProducts();
+
+        return  productList;
     }
 
     @Override
@@ -49,12 +66,9 @@ public class MenuServicesImpl implements MenuServices {
         envelope.dotNet = true;
         envelope.setOutputSoapObject(request);
 
-        //Create HTTP call object
         HttpTransportSE androidHttpTransport = new HttpTransportSE(WebServiceConstants.URL);
         try {
             androidHttpTransport.call(WebServiceConstants.SOAP_ACTION_CHECK_LICENCE_CODE, envelope);
-
-            //Get the response
             SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
 
             return Boolean.valueOf(response.toString());
@@ -80,7 +94,6 @@ public class MenuServicesImpl implements MenuServices {
             Integer companyID = Integer.parseInt(companyObj.getProperty("Company_ID").toString());
             String companyName = companyObj.getProperty("Name").toString();
             String logoUrl = companyObj.getProperty("LogoUrl").toString();
-            String logoUrlName = companyObj.getProperty("Url").toString();
             String adress = companyObj.getProperty("Adress").toString();
             String mail = companyObj.getProperty("Mail").toString();
             String phone = companyObj.getProperty("Phone").toString();
@@ -90,14 +103,8 @@ public class MenuServicesImpl implements MenuServices {
             } catch (ParseException e) {
                 createdDate = new Date();
             }
-
-            // GET CATEGORYID
             company.setCompanyID(companyID);
-
-            // GET CATEGORYNAME
             company.setCompanyName(companyName);
-
-            // GET IMAGEURL AND SAVE IMAGE
             String[] imageArray = logoUrl.split("/");
             String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
             company.setCompanyLogoUrl(c.getExternalFilesDir(null) + "/EmuaTablet/"+imageFileName);
@@ -110,41 +117,13 @@ public class MenuServicesImpl implements MenuServices {
             } catch (IOException e) {}
 
             createDirectoryAndSaveFile(c, bitmap, imageFileName);
-
-            // GET CATEGORY ORDER
             company.setAdress(adress);
-
-            // GET COMPANY MAIL
             company.setMail(mail);
-
-            //GET COMPANY PHONE
             company.setPhone(phone);
-
-            // GET CREATED DATE
             company.setCreateDate(createdDate);
-
         }
 
         return company;
-    }
-
-    private SoapObject connectToWebService(SoapObject request, String soapAction){
-        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
-        envelope.dotNet = true;
-        envelope.setOutputSoapObject(request);
-
-        HttpTransportSE androidHttpTransport = new HttpTransportSE(WebServiceConstants.URL);
-        androidHttpTransport.debug = true;
-
-        SoapObject response = null;
-        try {
-            androidHttpTransport.call(soapAction, envelope);
-            response = (SoapObject) envelope.getResponse();
-        } catch (IOException e) {
-        } catch (XmlPullParserException e) {
-        }
-
-        return response;
     }
 
     @Override
@@ -167,7 +146,6 @@ public class MenuServicesImpl implements MenuServices {
                 Integer categoryID = Integer.parseInt(categoryObj.getProperty("Category_ID").toString());
                 String categoryName = categoryObj.getProperty("Name").toString();
                 String imageUrl = categoryObj.getProperty("ImageUrl").toString();
-                String imageUrlName = categoryObj.getProperty("Url").toString();
                 Integer categoryOrder = Integer.parseInt(categoryObj.getProperty("OrderNumber").toString());
                 Date createdDate = new Date();
                 try {
@@ -175,14 +153,8 @@ public class MenuServicesImpl implements MenuServices {
                 } catch (ParseException e) {
                     createdDate = new Date();
                 }
-
-                // GET CATEGORYID
                 category.setCategoryID(categoryID);
-
-                // GET CATEGORYNAME
                 category.setCategoryName(categoryName);
-
-                // GET IMAGEURL AND SAVE IMAGE
                 String[] imageArray = imageUrl.split("/");
                 String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
                 category.setCategoryImageUrl(c.getExternalFilesDir(null) + "/EmuaTablet/"+imageFileName);
@@ -195,11 +167,7 @@ public class MenuServicesImpl implements MenuServices {
                 } catch (IOException e) {}
 
                 createDirectoryAndSaveFile(c,bitmap, imageFileName);
-
-                // GET CATEGORY ORDER
                 category.setOrder(categoryOrder);
-
-                // GET CREATED DATE
                 category.setCreateDate(createdDate);
             }
 
@@ -229,7 +197,6 @@ public class MenuServicesImpl implements MenuServices {
                 Integer productID = Integer.parseInt(productObj.getProperty("ProductSecondID").toString());
                 String productName = productObj.getProperty("Name").toString();
                 String imageUrl = productObj.getProperty("ImageUrl").toString();
-                String imageUrlName = productObj.getProperty("Url").toString();
                 Integer productOrder = Integer.parseInt(productObj.getProperty("OrderNumber").toString());
                 String detail = productObj.getProperty("Detail").toString();
                 String serviceTime = productObj.getProperty("ServiceTime").toString();
@@ -242,17 +209,10 @@ public class MenuServicesImpl implements MenuServices {
                 } catch (ParseException e) {
                     createdDate = new Date();
                 }
-
-                // GET PRODUCTID
                 product.setProductID(productID);
-
-                // GET PRODUCT NAME
                 product.setProductName(productName);
-
                 String[] imageArray= imageUrl.split("/");
                 String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
-
-                // GET IMAGEURL AND SAVE IMAGE
                 product.setProductImageUrl(c.getExternalFilesDir(null) + "/EmuaTablet/"+imageFileName);
                 try {
                     bitmap = null;
@@ -265,23 +225,11 @@ public class MenuServicesImpl implements MenuServices {
                 }
 
                 createDirectoryAndSaveFile(c,bitmap, imageFileName);
-
-                // GET PRODUCT ORDER
                 product.setOrder(productOrder);
-
-                // GET CREATED DATE
                 product.setCreateDate(createdDate);
-
-                // GET DETAIL
                 product.setProductDetail(detail);
-
-                // GET SERVICE TIME
                 product.setServiceTime(serviceTime);
-
-                // GET PRICE
                 product.setProductPrice(price);
-
-                // GET CATEGORY ID
                 product.setCategoryID(categoryID);
             }
 
@@ -291,22 +239,24 @@ public class MenuServicesImpl implements MenuServices {
         return products;
     }
 
-    @Override
-    public List<Category> getCategoryListFromDB(Context c) {
-        DBHelper dbHelper = new DBHelper(c);
-        List<Category> categoryList = dbHelper.getAllCategories();
+    private SoapObject connectToWebService(SoapObject request, String soapAction){
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        envelope.setOutputSoapObject(request);
 
-        return categoryList;
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(WebServiceConstants.URL);
+        androidHttpTransport.debug = true;
+
+        SoapObject response = null;
+        try {
+            androidHttpTransport.call(soapAction, envelope);
+            response = (SoapObject) envelope.getResponse();
+        } catch (IOException e) {
+        } catch (XmlPullParserException e) {
+        }
+
+        return response;
     }
-
-    @Override
-    public List<Product> getProductListFromDB(Context c) {
-        DBHelper dbHelper = new DBHelper(c);
-        List<Product> productList = dbHelper.getAllProducts();
-
-        return  productList;
-    }
-
 
     private void createDirectoryAndSaveFile(Context c, Bitmap imageToSave, String fileName) {
 

@@ -69,14 +69,4 @@ public class MenuUtils {
             return "02:00:00:00:00:00";
         }
     }
-
-    /*
-        public static String getMacAddress(Context c){
-            WifiManager wifiManager = (WifiManager) c.getSystemService(Context.WIFI_SERVICE);
-            WifiInfo wInfo = wifiManager.getConnectionInfo();
-            String macAddress = wInfo.getMacAddress();
-            macAddress = macAddress.replaceAll(":","").toUpperCase();
-            return macAddress;
-        }
-    */
 }
