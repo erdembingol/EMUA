@@ -31,12 +31,13 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
 
     GridView categoriesGridView;
     List<String> itemName = new ArrayList<String>();
-    List<Bitmap> imgid = new ArrayList<Bitmap>();
+    List<Bitmap> imgId = new ArrayList<Bitmap>();
     ProgressDialog dialog;
     private  MenuServices menuServices = new MenuServicesImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
@@ -51,10 +52,12 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     @Override
     public void onBackPressed() {
+
         Intent intent = new Intent(CategoryListActivity.this, StartActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -64,14 +67,17 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
 
     @Override
     protected void onPause() {
+
         super.onPause();
 
         if ((dialog != null) && dialog.isShowing())
             dialog.dismiss();
         dialog = null;
+
     }
 
-    public void showCategoryList(){
+    public void showCategoryList() {
+
         List<Category> categoryList = null;
         List<Product> productList = null;
         try {
@@ -90,9 +96,9 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
                 }
             }
             itemName.set(i, itemName.get(i).concat("/-/"+productNumber));
-            imgid.add(MenuUtils.loadImageSpecificLocation(categoryList.get(i).getCategoryImageUrl()));
+            imgId.add(MenuUtils.loadImageSpecificLocation(categoryList.get(i).getCategoryImageUrl()));
         }
-        CategoryListAdapter adapter = new CategoryListAdapter(CategoryListActivity.this, itemName, imgid);
+        CategoryListAdapter adapter = new CategoryListAdapter(CategoryListActivity.this, itemName, imgId);
         categoriesGridView = (GridView) findViewById(R.id.gridView);
         categoriesGridView.setAdapter(adapter);
 
@@ -114,12 +120,15 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
                 startActivityForResult(newActivity, 0);
             }
         });
+
     }
 
     public class Services extends AsyncTask<Context, String, List<?>> {
 
         private MenuServices menuServices = new MenuServicesImpl();
+
         private boolean downloadCategoryListToLocalDB(Context c) {
+
             DBHelper dbHelper = new DBHelper(c);
             dbHelper.deleteCategories();
 
@@ -128,10 +137,13 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
                 Category category = categoryList.get(i);
                 dbHelper.insertCategory(category);
             }
+
             return true;
+
         }
 
         private boolean downloadProductListToLocalDB(Context c) {
+
             DBHelper dbHelper = new DBHelper(c);
             dbHelper.deleteProducts();
 
@@ -140,43 +152,56 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
                 Product product = productList.get(i);
                 dbHelper.insertProduct(product);
             }
+
             return true;
+
         }
 
         private boolean downloadCompanyToLocalDB(Context c){
+
             DBHelper dbHelper = new DBHelper(c);
             dbHelper.deleteCompany();
 
             Company company = menuServices.getCompany(c);
             dbHelper.insertCompany(company);
+
             return true;
+
         }
 
         @Override
         protected void onPreExecute() {
+
             dialog = new ProgressDialog(CategoryListActivity.this);
             dialog.setMessage("Güncel ürün bilgileri indiriliyor. Lütfen bekleyiniz...");
             dialog.setCancelable(false);
             dialog.setIndeterminate(true);
             dialog.show();
+
         }
 
         @Override
-        protected List<?> doInBackground(Context... params){
+        protected List<?> doInBackground(Context... params) {
+
             if(!isCancelled()) {
                 downloadCategoryListToLocalDB(params[0]);
                 downloadProductListToLocalDB(params[0]);
                 downloadCompanyToLocalDB(params[0]);
             }
+
             return null;
+
         }
 
         @Override
         protected void onPostExecute(List<?> objects) {
+
             if ((dialog != null) && dialog.isShowing()) {
                 dialog.dismiss();
             }
+
             showCategoryList();
+
         }
 
     }

@@ -11,12 +11,14 @@ import android.widget.ImageView;
 import com.evrekaguys.myapplication.R;
 
 public class StartActivity extends AppCompatActivity {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().hide();
 
         ImageView img = (ImageView) findViewById(R.id.start);
         img.setOnTouchListener(new View.OnTouchListener() {
@@ -26,9 +28,11 @@ public class StartActivity extends AppCompatActivity {
                 return true;
             }
         });
+
     }
 
     public void goTabletMenu(View v) {
+
         if (isLicenced()) {
             Intent intent = new Intent(StartActivity.this, CategoryListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -40,6 +44,7 @@ public class StartActivity extends AppCompatActivity {
 
             startActivity(intent);
         }
+
     }
 
     private boolean isLicenced() {

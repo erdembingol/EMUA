@@ -14,6 +14,7 @@ public class ProductDetailActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
 
@@ -25,5 +26,6 @@ public class ProductDetailActivity extends Activity {
 
         int selectedItem = getIntent().getIntExtra("selected",0);
         viewPager.setCurrentItem(selectedItem);
+
     }
 }

@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
+
     private static final String DATABASE_NAME = "emuamenuDB";
     private static final String TABLE_CATEGORIES = "categories";
     private static final String TABLE_PRODUCTS = "products";
@@ -27,6 +28,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         String sql_table_categories = "CREATE TABLE "+TABLE_CATEGORIES+" (ID INTEGER PRIMARY KEY AUTOINCREMENT, CategoryID INTEGER, Name TEXT, ImageUrl TEXT, CategoryOrder INTEGER, CreateDate LONG"+")";
         String sql_table_products = "CREATE TABLE "+TABLE_PRODUCTS+" (ID INTEGER PRIMARY KEY AUTOINCREMENT ,ProductID INTEGER, Name TEXT, ImageUrl TEXT, ProductOrder INTEGER, Detail TEXT, ServiceTime TEXT, Price DECIMAL, CreateDate LONG,ProductCategoryID INTEGER, FOREIGN KEY(ProductCategoryID) REFERENCES categories(CategoryID)"+")";
         String sql_table_company = "CREATE TABLE "+TABLE_COMPANY+" (ID INTEGER PRIMARY KEY AUTOINCREMENT, CompanyID INTEGER, Name TEXT, LogoUrl TEXT, Adress TEXT, Mail TEXT, Phone TEXT, CreateDate LONG"+")";
@@ -34,18 +36,22 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(sql_table_categories);
         db.execSQL(sql_table_products);
         db.execSQL(sql_table_company);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_PRODUCTS);
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_CATEGORIES);
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_COMPANY);
 
         onCreate(db);
+
     }
 
-    public void insertCategory(Category category){
+    public void insertCategory(Category category) {
+
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -57,9 +63,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
         database.insert(TABLE_CATEGORIES,null,values);
         database.close();
+
     }
 
-    public void insertCompany(Company company){
+    public void insertCompany(Company company) {
+
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -73,9 +81,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
         database.insert(TABLE_COMPANY,null,values);
         database.close();
+
     }
 
-    public void insertProduct(Product product){
+    public void insertProduct(Product product) {
+
         SQLiteDatabase database = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -91,9 +101,11 @@ public class DBHelper extends SQLiteOpenHelper {
 
         database.insert(TABLE_PRODUCTS,null,values);
         database.close();
+
     }
 
-    public  List<Product> getAllProducts(){
+    public  List<Product> getAllProducts() {
+
         List<Product> products = new ArrayList<Product>();
         SQLiteDatabase database = this.getWritableDatabase();
 
@@ -119,9 +131,11 @@ public class DBHelper extends SQLiteOpenHelper {
         database.close();
 
         return  products;
+
     }
 
-    public List<Category> getAllCategories(){
+    public List<Category> getAllCategories() {
+
         List<Category> categories = new ArrayList<Category>();
         SQLiteDatabase database = this.getWritableDatabase();
 
@@ -142,9 +156,11 @@ public class DBHelper extends SQLiteOpenHelper {
         database.close();
 
         return categories;
+
     }
 
-    public Company getCompany(){
+    public Company getCompany() {
+
         Company company = new Company();
         SQLiteDatabase database = this.getWritableDatabase();
 
@@ -162,34 +178,42 @@ public class DBHelper extends SQLiteOpenHelper {
 
         }
         database.close();
+
         return company;
+
     }
 
-    public boolean deleteProducts(){
+    public boolean deleteProducts() {
+
         SQLiteDatabase database = this.getWritableDatabase();
 
         int state = database.delete(TABLE_PRODUCTS,null,null);
         database.close();
 
         return state > 0;
+
     }
 
-    public boolean deleteCategories(){
+    public boolean deleteCategories() {
+
         SQLiteDatabase database = this.getWritableDatabase();
 
         int state = database.delete(TABLE_CATEGORIES,null,null);
         database.close();
 
         return state > 0;
+
     }
 
-    public boolean deleteCompany(){
+    public boolean deleteCompany() {
+
         SQLiteDatabase database = this.getWritableDatabase();
 
         int state = database.delete(TABLE_COMPANY,null,null);
         database.close();
 
         return state > 0;
+
     }
 
 }
