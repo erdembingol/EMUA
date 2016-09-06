@@ -34,30 +34,37 @@ public class MenuServicesImpl implements MenuServices {
 
     @Override
     public Company getCompanyFromDB(Context c) {
+
         DBHelper dbHelper = new DBHelper(c);
         Company company = dbHelper.getCompany();
 
         return company;
+
     }
 
     @Override
     public List<Category> getCategoryListFromDB(Context c) {
+
         DBHelper dbHelper = new DBHelper(c);
         List<Category> categoryList = dbHelper.getAllCategories();
 
         return categoryList;
+
     }
 
     @Override
     public List<Product> getProductListFromDB(Context c) {
+
         DBHelper dbHelper = new DBHelper(c);
         List<Product> productList = dbHelper.getAllProducts();
 
         return  productList;
+
     }
 
     @Override
     public boolean checkLicenceCode(Context c, String licenceCode) {
+
         SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_CHECK_LICENCE_CODE);
         request.addProperty("MAC", MenuUtils.getMacAddress(c));
         request.addProperty("LicenceCode",licenceCode);
@@ -80,6 +87,7 @@ public class MenuServicesImpl implements MenuServices {
 
     @Override
     public Company getCompany(Context c) {
+
         SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_GET_COMPANY);
         request.addProperty("MAC",MenuUtils.getMacAddress(c));
 
@@ -124,10 +132,12 @@ public class MenuServicesImpl implements MenuServices {
         }
 
         return company;
+
     }
 
     @Override
     public List<Category> getCategoryList(Context c) {
+
         SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_GET_CATEGORY);
         request.addProperty("MAC",MenuUtils.getMacAddress(c));
 
@@ -175,10 +185,12 @@ public class MenuServicesImpl implements MenuServices {
         }
 
         return categories;
+
     }
 
     @Override
     public List<Product> getProductList(Context c) {
+
         SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_GET_PRODUCT);
         request.addProperty("MAC",MenuUtils.getMacAddress(c));
 
@@ -237,9 +249,11 @@ public class MenuServicesImpl implements MenuServices {
         }
 
         return products;
+
     }
 
-    private SoapObject connectToWebService(SoapObject request, String soapAction){
+    private SoapObject connectToWebService(SoapObject request, String soapAction) {
+
         SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
         envelope.dotNet = true;
         envelope.setOutputSoapObject(request);
@@ -251,11 +265,11 @@ public class MenuServicesImpl implements MenuServices {
         try {
             androidHttpTransport.call(soapAction, envelope);
             response = (SoapObject) envelope.getResponse();
-        } catch (IOException e) {
-        } catch (XmlPullParserException e) {
-        }
+        } catch (IOException e) {}
+          catch (XmlPullParserException e) {}
 
         return response;
+
     }
 
     private void createDirectoryAndSaveFile(Context c, Bitmap imageToSave, String fileName) {
@@ -281,6 +295,7 @@ public class MenuServicesImpl implements MenuServices {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
 }

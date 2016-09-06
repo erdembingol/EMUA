@@ -12,7 +12,8 @@ import java.util.List;
 
 public class MenuUtils {
 
-    public static Bitmap loadImageSpecificLocation(String filePath){
+    public static Bitmap loadImageSpecificLocation(String filePath) {
+
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inSampleSize = 2;
 
@@ -23,18 +24,22 @@ public class MenuUtils {
         }
 
         return null;
+
     }
 
     public static boolean InternetKontrol(ConnectivityManager manager) {
+
         if (manager.getActiveNetworkInfo() != null
                 && manager.getActiveNetworkInfo().isAvailable()
                 && manager.getActiveNetworkInfo().isConnected()) {
             return true;
         } else
             return false;
+
     }
 
     public static String getMacAddress(Context c) {
+
         StringBuilder res1 = new StringBuilder();
 
         try{
@@ -68,5 +73,7 @@ public class MenuUtils {
         } else {
             return "02:00:00:00:00:00";
         }
+
     }
+
 }

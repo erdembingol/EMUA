@@ -9,6 +9,7 @@ import com.evrekaguys.myapplication.model.Product;
 import java.util.List;
 
 public interface MenuServices {
+
     public List<Category> getCategoryList(Context c);
     public List<Product> getProductList(Context c);
     public List<Category> getCategoryListFromDB(Context c);
@@ -16,4 +17,5 @@ public interface MenuServices {
     public Company getCompany(Context c);
     public Company getCompanyFromDB(Context c);
     public boolean checkLicenceCode(Context c, String licenceCode);
+
 }
