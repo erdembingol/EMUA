@@ -21,14 +21,17 @@ public class ProductListAdapter extends ArrayAdapter {
     private ArrayList data = new ArrayList();
 
     public ProductListAdapter(Context context, int layoutResourceId, ArrayList data) {
+
         super(context, layoutResourceId, data);
         this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.data = data;
+
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
         View row = convertView;
         ViewHolder holder = null;
 
@@ -50,11 +53,14 @@ public class ProductListAdapter extends ArrayAdapter {
         holder.image.setImageBitmap(item.getImage());
 
         return row;
+
     }
 
     static class ViewHolder {
+
         TextView imageTitle;
         ImageView image;
+
     }
 }
 

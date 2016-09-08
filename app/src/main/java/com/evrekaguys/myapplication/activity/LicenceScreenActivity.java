@@ -5,17 +5,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.evrekaguys.myapplication.R;
+import com.evrekaguys.myapplication.activity.base.BaseActivity;
 import com.evrekaguys.services.MenuServices;
 import com.evrekaguys.services.MenuServicesImpl;
 
-public class LicenceScreenActivity extends AppCompatActivity {
+public class LicenceScreenActivity extends BaseActivity {
 
     private static String licenceCode = "";
     private static boolean isLicenced;
@@ -26,6 +26,7 @@ public class LicenceScreenActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_licence_screen);
 
@@ -34,27 +35,28 @@ public class LicenceScreenActivity extends AppCompatActivity {
 
         b.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if (et.getText().length() != 0 && et.getText().toString() != "") {
-                    licenceCode = et.getText().toString();
+            if (et.getText().length() != 0 && et.getText().toString() != "") {
+                licenceCode = et.getText().toString();
 
-                    AsyncCallWS task = new AsyncCallWS();
-                    task.execute();
-                } else {
-                    AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreenActivity.this);
-                    dialog.setMessage("Lütfen Geçerli Bir Lisans Kodu Giriniz!")
-                            .setCancelable(false)
-                            .setPositiveButton("TAMAM", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    dialog.cancel();
-                                }
-                            });
-                    AlertDialog alert = dialog.create();
-                    alert.setTitle("Uyarı");
-                    alert.show();
-                }
+                AsyncCallWS task = new AsyncCallWS();
+                task.execute();
+            } else {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(LicenceScreenActivity.this);
+                dialog.setMessage("Lütfen Geçerli Bir Lisans Kodu Giriniz!")
+                        .setCancelable(false)
+                        .setPositiveButton("TAMAM", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alert = dialog.create();
+                alert.setTitle("Uyarı");
+                alert.show();
+            }
             }
         });
+
     }
 
     public void clearLicenceCodeArea(View v) {
@@ -65,14 +67,18 @@ public class LicenceScreenActivity extends AppCompatActivity {
     }
 
     private class AsyncCallWS extends AsyncTask<String, Void, Void> {
+
         @Override
         protected Void doInBackground(String... params) {
+
             isLicenced = menuServices.checkLicenceCode(getApplicationContext(),licenceCode);
             return null;
+
         }
 
         @Override
         protected void onPostExecute(Void result) {
+
             SharedPreferences settings = getSharedPreferences("LICENCE", 0);
             boolean licenced = settings.getBoolean("licenced", false);
 
@@ -110,6 +116,7 @@ public class LicenceScreenActivity extends AppCompatActivity {
                 alert.setTitle("Uyarı");
                 alert.show();
             }
+
         }
 
         @Override

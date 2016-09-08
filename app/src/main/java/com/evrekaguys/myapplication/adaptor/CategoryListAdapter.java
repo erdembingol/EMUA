@@ -20,14 +20,17 @@ public class CategoryListAdapter extends ArrayAdapter<String> {
 	private final List<Bitmap> imgid;
 	
 	public CategoryListAdapter(Activity context, List<String> itemname, List<Bitmap> imgid) {
+
 		super(context, R.layout.single_item_in_category_list,itemname);
 
 		this.context = context;
 		this.itemname = itemname;
 		this.imgid = imgid;
+
 	}
 	
 	public View getView(int position,View view,ViewGroup parent) {
+
 		LayoutInflater inflater = context.getLayoutInflater();
 		View gridView = inflater.inflate(R.layout.single_item_in_category_list, null,true);
 
@@ -46,5 +49,7 @@ public class CategoryListAdapter extends ArrayAdapter<String> {
 		}
 
 		return gridView;
+
 	}
+
 }

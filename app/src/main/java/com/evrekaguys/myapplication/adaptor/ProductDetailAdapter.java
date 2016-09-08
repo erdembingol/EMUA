@@ -2,7 +2,6 @@ package com.evrekaguys.myapplication.adaptor;
 
 import android.app.Activity;
 import android.app.Dialog;
-import android.graphics.Bitmap;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ import com.evrekaguys.services.MenuServicesImpl;
 import com.evrekaguys.utils.MenuUtils;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class ProductDetailAdapter extends PagerAdapter {
 
@@ -29,9 +27,11 @@ public class ProductDetailAdapter extends PagerAdapter {
     private final ArrayList<Product> productList;
     private MenuServices menuServices = new MenuServicesImpl();
 
-    public ProductDetailAdapter(Activity context, ArrayList<Product> productList){
+    public ProductDetailAdapter(Activity context, ArrayList<Product> productList) {
+
         this.context=context;
         this.productList = productList;
+
     }
 
     @Override
@@ -41,11 +41,14 @@ public class ProductDetailAdapter extends PagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
+
         return view == ((LinearLayout) object);
+
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.product_detail_format, null,true);
 
@@ -86,27 +89,33 @@ public class ProductDetailAdapter extends PagerAdapter {
                     }
                 });
             }
-
         } else {
             LinearLayout ll = (LinearLayout) rowView.findViewById(R.id.urunDetayLayout);
             ll.setVisibility(View.GONE);
         }
 
         TextView urunFiyat = (TextView) rowView.findViewById(R.id.urunFiyat);
-        urunFiyat.setText("FİYAT : " + product.getProductPrice().toString() + " TL");
+        urunFiyat.setText(product.getProductPrice().toString() + " TL");
 
         TextView urunServisiSuresi = (TextView) rowView.findViewById(R.id.urunServisSuresi);
-        urunServisiSuresi.setText("SERVİS SÜRESİ : " + product.getServiceTime().toString() + " DK");
+        String serviceTime = product.getServiceTime().toString();
+        if (serviceTime.length() >= 3)
+            urunServisiSuresi.setText(serviceTime.substring(0, serviceTime.length()-3) + " dk");
+        else
+            urunServisiSuresi.setText(serviceTime + " dk");
 
         ImageView icon = (ImageView) rowView.findViewById(R.id.sirketIcon);
         icon.setImageBitmap(MenuUtils.loadImageSpecificLocation(company.getCompanyLogoUrl()));
         ((ViewPager) container).addView(rowView, 0);
 
         return rowView;
+
     }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
+
         ((ViewPager) container).removeView((LinearLayout) object);
+
     }
 }
