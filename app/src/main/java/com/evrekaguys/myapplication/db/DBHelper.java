@@ -21,6 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_CATEGORIES = "categories";
     private static final String TABLE_PRODUCTS = "products";
     private static final String TABLE_COMPANY = "company";
+    private static final String TABLE_COLOR = "colour";
 
     public DBHelper(Context context){
         super(context,DATABASE_NAME,null,10);
@@ -29,9 +30,9 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String sql_table_categories = "CREATE TABLE "+TABLE_CATEGORIES+" (ID INTEGER PRIMARY KEY AUTOINCREMENT, CategoryID INTEGER, Name TEXT, ImageUrl TEXT, CategoryOrder INTEGER, CreateDate LONG"+")";
-        String sql_table_products = "CREATE TABLE "+TABLE_PRODUCTS+" (ID INTEGER PRIMARY KEY AUTOINCREMENT ,ProductID INTEGER, Name TEXT, ImageUrl TEXT, ProductOrder INTEGER, Detail TEXT, ServiceTime TEXT, Price DECIMAL, CreateDate LONG,ProductCategoryID INTEGER, FOREIGN KEY(ProductCategoryID) REFERENCES categories(CategoryID)"+")";
-        String sql_table_company = "CREATE TABLE "+TABLE_COMPANY+" (ID INTEGER PRIMARY KEY AUTOINCREMENT, CompanyID INTEGER, Name TEXT, LogoUrl TEXT, Adress TEXT, Mail TEXT, Phone TEXT, CreateDate LONG"+")";
+        String sql_table_categories = "CREATE TABLE " + TABLE_CATEGORIES + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, CategoryID INTEGER, Name TEXT, ImageUrl TEXT, CategoryOrder INTEGER, CreateDate LONG"+")";
+        String sql_table_products = "CREATE TABLE " + TABLE_PRODUCTS + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, ProductID INTEGER, Name TEXT, ImageUrl TEXT, ProductOrder INTEGER, Detail TEXT, ServiceTime TEXT, Price DECIMAL, CreateDate LONG,ProductCategoryID INTEGER, FOREIGN KEY(ProductCategoryID) REFERENCES categories(CategoryID)"+")";
+        String sql_table_company = "CREATE TABLE IF NOT EXISTS " + TABLE_COMPANY + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, CompanyID INTEGER, Name TEXT, LogoUrl TEXT, Adress TEXT, Mail TEXT, Phone TEXT, CreateDate LONG"+")";
 
         db.execSQL(sql_table_categories);
         db.execSQL(sql_table_products);
@@ -42,9 +43,9 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_PRODUCTS);
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_CATEGORIES);
-        db.execSQL("DROP TABLE IF EXISTS "+TABLE_COMPANY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_PRODUCTS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_CATEGORIES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMPANY);
 
         onCreate(db);
 

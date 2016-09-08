@@ -3,10 +3,30 @@ package com.evrekaguys.utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
+import android.os.Build;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Toast;
 
+import com.evrekaguys.myapplication.activity.base.BaseActivity;
+import com.evrekaguys.myapplication.db.DBHelper;
+import com.evrekaguys.myapplication.model.Colour;
+
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.NetworkInterface;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,7 +47,7 @@ public class MenuUtils {
 
     }
 
-    public static boolean InternetKontrol(ConnectivityManager manager) {
+    public static boolean checkInternet(ConnectivityManager manager) {
 
         if (manager.getActiveNetworkInfo() != null
                 && manager.getActiveNetworkInfo().isAvailable()
@@ -73,6 +93,75 @@ public class MenuUtils {
         } else {
             return "02:00:00:00:00:00";
         }
+
+    }
+
+    public static void setActionBarColor(BaseActivity activity, String color) {
+
+        activity.getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(color)));
+
+    }
+
+    public static void setStatusBarColor(Window window, String color) {
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor((Color.parseColor(color)));
+        }
+
+    }
+
+    public static void writeToFile(BaseActivity activity, List<Colour> colours) {
+
+        try {
+            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(activity.openFileOutput("colours.txt", Context.MODE_PRIVATE));
+
+            for (int i = 0; i < colours.size(); i++) {
+                outputStreamWriter.write(colours.get(i).name + "&" + colours.get(i).value + "\n");
+            }
+
+            outputStreamWriter.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static List<Colour> readFromFile(BaseActivity activity) {
+
+        List<Colour> colours = new ArrayList<>();
+
+        try {
+            InputStream inputStream = activity.openFileInput("colours.txt");
+
+            if (inputStream != null) {
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+
+                String receiveString = "";
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    colours.add(parseToColour(receiveString));
+                }
+
+                inputStream.close();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return colours;
+
+    }
+
+    private static Colour parseToColour(String text) {
+
+        String[] parts = text.split("&");
+
+        Colour colour = new Colour(parts[0], parts[1]);
+
+        return colour;
 
     }
 
