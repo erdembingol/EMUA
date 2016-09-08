@@ -12,20 +12,10 @@
             android:id="@+id/start"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/a1"
+            android:src="@drawable/a5_3"
             android:adjustViewBounds="false"
             android:scaleType="fitXY"
             android:clickable="true" />
-
-        <TextView
-            android:id="@+id/textView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Menüye Buyrun..."
-            android:textSize="35sp"
-            android:layout_centerInParent="true"
-            android:textColor="#8ca932"
-            android:textStyle="bold|italic" />
 
         <LinearLayout
             android:orientation="vertical"
