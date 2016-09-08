@@ -5,17 +5,17 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.evrekaguys.myapplication.R;
+import com.evrekaguys.myapplication.activity.base.BaseActivity;
 import com.evrekaguys.services.MenuServices;
 import com.evrekaguys.services.MenuServicesImpl;
 
-public class LicenceScreenActivity extends AppCompatActivity {
+public class LicenceScreenActivity extends BaseActivity {
 
     private static String licenceCode = "";
     private static boolean isLicenced;

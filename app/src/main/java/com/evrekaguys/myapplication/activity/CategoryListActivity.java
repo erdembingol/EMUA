@@ -7,13 +7,13 @@ import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
 import com.evrekaguys.myapplication.R;
+import com.evrekaguys.myapplication.activity.base.BaseActivity;
 import com.evrekaguys.myapplication.adaptor.CategoryListAdapter;
 import com.evrekaguys.myapplication.db.DBHelper;
 import com.evrekaguys.myapplication.model.Category;
@@ -27,13 +27,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryListActivity extends AppCompatActivity implements Serializable{
+public class CategoryListActivity extends BaseActivity implements Serializable{
 
     GridView categoriesGridView;
     List<String> itemName = new ArrayList<String>();
     List<Bitmap> imgId = new ArrayList<Bitmap>();
     ProgressDialog dialog;
-    private  MenuServices menuServices = new MenuServicesImpl();
+    private MenuServices menuServices = new MenuServicesImpl();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,14 +41,15 @@ public class CategoryListActivity extends AppCompatActivity implements Serializa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+        setTitle(R.string.app_name);
 
         try {
-            if (MenuUtils.InternetKontrol((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
-                Services services = new Services();
-                services.execute(getApplicationContext());
-            }else{
+//            if (MenuUtils.checkInternet((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
+//                Services services = new Services();
+//                services.execute(getApplicationContext());
+//            }else{
                 showCategoryList();
-            }
+//            }
         } catch (Exception e) {
             e.printStackTrace();
         }

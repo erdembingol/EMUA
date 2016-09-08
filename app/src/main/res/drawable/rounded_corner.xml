@@ -3,12 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <!-- view background color a9c5ac -->
+    <!-- view background colour a9c5ac -->
     <solid
         android:color="@color/white" >
     </solid>
 
-    <!-- view border color and width -->
+    <!-- view border colour and width -->
     <stroke
         android:width="0dp"
         android:color="#1c1b20" >
