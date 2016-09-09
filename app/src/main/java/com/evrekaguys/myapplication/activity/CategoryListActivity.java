@@ -44,12 +44,12 @@ public class CategoryListActivity extends BaseActivity implements Serializable{
         setTitle(R.string.app_name);
 
         try {
-//            if (MenuUtils.checkInternet((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
-//                Services services = new Services();
-//                services.execute(getApplicationContext());
-//            }else{
+            if (MenuUtils.checkInternet((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
+                Services services = new Services();
+                services.execute(getApplicationContext());
+            }else{
                 showCategoryList();
-//            }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
