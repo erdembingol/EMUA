@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/a5_3">
+    android:background="@drawable/background">
 
     <LinearLayout
         android:orientation="vertical"
@@ -10,17 +10,16 @@
         android:layout_height="match_parent"
         android:id="@+id/leftSection"
         android:layout_weight=".1"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="5dp">
+        android:layout_marginRight="5dp"
+        android:background="@drawable/product">
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/urunResim"
-            android:src="@drawable/menu"
-            android:scaleType="fitXY" />
+            android:src="@drawable/background"
+            android:scaleType="fitXY"
+            android:layout_marginRight="1px" />
     </LinearLayout>
 
     <LinearLayout
@@ -147,23 +146,28 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="150sp"
-            android:layout_height="110sp"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="10dp"
-            android:layout_gravity="bottom"
-            android:gravity="bottom">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:layout_marginBottom="5dp">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/sirketIcon"
-                android:src="@drawable/ic_launcher"
-                android:scaleType="fitXY"
-                android:background="#00000000"
-                android:layout_gravity="bottom" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="150sp"
+                android:layout_height="105sp"
+                android:layout_gravity="center|bottom"
+                android:gravity="bottom">
 
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:id="@+id/sirketIcon"
+                    android:src="@drawable/android_logo"
+                    android:scaleType="fitXY"
+                    android:layout_gravity="bottom"
+                    android:background="@android:color/transparent" />
+
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>
