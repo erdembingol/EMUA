@@ -6,6 +6,6 @@
     android:stretchMode="columnWidth"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@drawable/a5_3">
+    android:background="@drawable/background">
 
 </GridView>
