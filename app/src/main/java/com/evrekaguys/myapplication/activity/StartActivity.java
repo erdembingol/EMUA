@@ -40,17 +40,17 @@ public class StartActivity extends BaseActivity {
 
     public void goTabletMenu(View v) {
 
-        if (isLicenced()) {
+//        if (isLicenced()) {
             Intent intent = new Intent(StartActivity.this, CategoryListActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             startActivity(intent);
-        } else {
-            Intent intent = new Intent(StartActivity.this, LicenceScreenActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-            startActivity(intent);
-        }
+//        } else {
+//            Intent intent = new Intent(StartActivity.this, LicenceScreenActivity.class);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//
+//            startActivity(intent);
+//        }
 
     }
 

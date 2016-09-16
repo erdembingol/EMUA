@@ -68,7 +68,8 @@ public class ProductDetailAdapter extends PagerAdapter {
             if(product.getProductDetail().length() < urunDetay.getTextSize()) {
                 urunDetay.setText(product.getProductDetail());
             } else {
-                urunDetay.setText(product.getProductDetail().substring(0, Math.round(urunDetay.getTextSize())-5)+">>>>>");
+                //urunDetay.setText(product.getProductDetail().substring(0, Math.round(urunDetay.getTextSize()) - 4) + " >>>");
+                urunDetay.setText(detayPrint(product.getProductDetail(), Math.round(urunDetay.getTextSize())));
                 urunDetay.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -116,6 +117,22 @@ public class ProductDetailAdapter extends PagerAdapter {
     public void destroyItem(ViewGroup container, int position, Object object) {
 
         ((ViewPager) container).removeView((LinearLayout) object);
+
+    }
+
+    private static String detayPrint(String text, int size) {
+
+        StringBuilder sb = new StringBuilder("");
+
+        String[] tokens = text.substring(0, text.length()-4).split(" ");
+        for (int i = 0; i < tokens.length; i++) {
+            if (sb.length() + tokens[i].length() > size)
+                break;
+
+            sb.append(tokens[i] + " ");
+        }
+
+        return sb.append(" >>>").toString();
 
     }
 }
