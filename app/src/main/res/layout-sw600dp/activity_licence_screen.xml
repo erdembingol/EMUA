@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.LicenceScreenActivity"
+    android:background="@drawable/background">
+
+    <LinearLayout
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/licence_code"
+                android:text="Lütfen lisans kodunu giriniz..."
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:textColor="#464646"
+                android:onClick="clearLicenceCodeArea"
+                android:textStyle="bold|italic"
+                android:textSize="25dp" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GÖNDER"
+                android:id="@+id/send"
+                android:layout_below="@+id/licence_code"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:background="#e9f1cf"
+                android:textColor="#8ca932"
+                android:textSize="30dp"
+                android:textStyle="bold|italic"
+                android:padding="18dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="NOT"
+                        android:id="@+id/textView10"
+                        android:textColor="#464646"
+                        android:textStyle="bold|italic"
+                        android:textSize="30dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="!! EMUA Teblet Menü uygulamasını kullanmak için uygulamayı aktive etmeniz gerekmektedir."
+                            android:id="@+id/textView11"
+                            android:layout_below="@+id/send"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="#464646"
+                            android:textSize="25dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:text="!! Licence kodunu almak için aşağıda yer alan gsm ve mail adresinden iletişime geçebilirsiniz."
+                            android:id="@+id/textView2"
+                            android:layout_below="@+id/send"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_alignParentEnd="true"
+                            android:textColor="#464646"
+                            android:textSize="25dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="GSM : "
+                android:id="@+id/textView3"
+                android:layout_below="@+id/textView2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#464646"
+                android:textStyle="bold|italic"
+                android:textSize="25dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="0543 457 23 21"
+                android:id="@+id/textView12"
+                android:layout_below="@+id/textView2"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#464646"
+                android:textSize="25dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="E-mail : "
+                android:id="@+id/textView5"
+                android:layout_below="@+id/textView3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#464646"
+                android:textStyle="bold|italic"
+                android:textSize="25dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="www.emua@info.com.tr"
+                android:id="@+id/textView13"
+                android:layout_below="@+id/textView3"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:textColor="#464646"
+                android:textSize="25dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:gravity="center|bottom">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="EMUA Tablet Menü"
+                android:id="@+id/textView4"
+                android:layout_above="@+id/textView6"
+                android:layout_centerHorizontal="true"
+                android:textColor="#5e5d5d"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:textStyle="italic" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Emua Bilişim Teknolojileri Ltd.Şti"
+                android:id="@+id/textView6"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:textColor="#5e5d5d"
+                android:gravity="center"
+                android:textSize="25dp"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>
+
