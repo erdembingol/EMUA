@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_COLOR = "colour";
 
     public DBHelper(Context context){
-        super(context,DATABASE_NAME,null,10);
+        super(context,DATABASE_NAME,null,11);
     }
 
     @Override
@@ -67,6 +67,31 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
+    public void deleteCategory(int categoryId) {
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        database.delete(TABLE_CATEGORIES,"CategoryID" + " = ?", new String[] { String.valueOf(categoryId) });
+        database.close();
+
+    }
+
+    public void updateCategory(Category category) {
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("CategoryID", category.getCategoryID());
+        values.put("Name", category.getCategoryName());
+        values.put("ImageUrl", category.getCategoryImageUrl());
+        values.put("CategoryOrder", category.getOrder());
+        values.put("CreateDate", category.getCreateDate().getTime());
+
+        database.update(TABLE_CATEGORIES,values,"CategoryID" + " = ?", new String[] { String.valueOf(category.getCategoryID()) });
+        database.close();
+
+    }
+
     public void insertCompany(Company company) {
 
         SQLiteDatabase database = this.getWritableDatabase();
@@ -101,6 +126,35 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put("ProductCategoryID",product.getCategoryID());
 
         database.insert(TABLE_PRODUCTS,null,values);
+        database.close();
+
+    }
+
+    public void deleteProduct(int productId) {
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        database.delete(TABLE_CATEGORIES,"ProductID" + " = ?", new String[] { String.valueOf(productId) });
+        database.close();
+
+    }
+
+    public void updateProduct(Product product) {
+
+        SQLiteDatabase database = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put("ProductID", product.getProductID());
+        values.put("Name", product.getProductName());
+        values.put("ImageUrl", product.getProductImageUrl());
+        values.put("ProductOrder", product.getOrder());
+        values.put("Detail", product.getProductDetail());
+        values.put("ServiceTime", product.getServiceTime());
+        values.put("Price", product.getProductPrice().doubleValue());
+        values.put("CreateDate", product.getCreateDate().getTime());
+        values.put("ProductCategoryID",product.getCategoryID());
+
+        database.update(TABLE_PRODUCTS,values,"ProductID" + " = ?", new String[] { String.valueOf(product.getProductID()) });
         database.close();
 
     }

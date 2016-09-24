@@ -3,6 +3,7 @@ package com.evrekaguys.services;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Environment;
 
 import com.evrekaguys.myapplication.model.Category;
 import com.evrekaguys.myapplication.model.Company;
@@ -115,7 +116,7 @@ public class MenuServicesImpl implements MenuServices {
             company.setCompanyName(companyName);
             String[] imageArray = logoUrl.split("/");
             String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
-            company.setCompanyLogoUrl(c.getExternalFilesDir(null) + "/EmuaTablet/"+imageFileName);
+            company.setCompanyLogoUrl("/EmuaTablet/"+imageFileName);
             try {
                 bitmap = null;
                 InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(logoUrl,"UTF-8").replace("+", "%20")).openStream();
@@ -124,7 +125,7 @@ public class MenuServicesImpl implements MenuServices {
                 inputStream.close();
             } catch (IOException e) {}
 
-            createDirectoryAndSaveFile(c, bitmap, imageFileName);
+            createDirectoryAndSaveFile(c, bitmap, imageFileName, imageFileName.split("\\.")[1]);
             company.setAdress(adress);
             company.setMail(mail);
             company.setPhone(phone);
@@ -167,7 +168,7 @@ public class MenuServicesImpl implements MenuServices {
                 category.setCategoryName(categoryName);
                 String[] imageArray = imageUrl.split("/");
                 String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
-                category.setCategoryImageUrl(c.getExternalFilesDir(null) + "/EmuaTablet/"+imageFileName);
+                category.setCategoryImageUrl("/EmuaTablet/"+imageFileName);
                 try {
                     bitmap = null;
                     InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(imageUrl,"UTF-8").replace("+", "%20")).openStream();
@@ -176,7 +177,7 @@ public class MenuServicesImpl implements MenuServices {
                     inputStream.close();
                 } catch (IOException e) {}
 
-                createDirectoryAndSaveFile(c,bitmap, imageFileName);
+                createDirectoryAndSaveFile(c,bitmap, imageFileName, imageFileName.split("\\.")[1]);
                 category.setOrder(categoryOrder);
                 category.setCreateDate(createdDate);
             }
@@ -225,7 +226,7 @@ public class MenuServicesImpl implements MenuServices {
                 product.setProductName(productName);
                 String[] imageArray= imageUrl.split("/");
                 String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
-                product.setProductImageUrl(c.getExternalFilesDir(null) + "/EmuaTablet/"+imageFileName);
+                product.setProductImageUrl("/EmuaTablet/"+imageFileName);
                 try {
                     bitmap = null;
                     InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(imageUrl,"UTF-8").replace("+", "%20")).openStream();
@@ -236,7 +237,7 @@ public class MenuServicesImpl implements MenuServices {
                     e.printStackTrace();
                 }
 
-                createDirectoryAndSaveFile(c,bitmap, imageFileName);
+                createDirectoryAndSaveFile(c,bitmap, imageFileName, imageFileName.split("\\.")[1]);
                 product.setOrder(productOrder);
                 product.setCreateDate(createdDate);
                 product.setProductDetail(detail);
@@ -272,23 +273,28 @@ public class MenuServicesImpl implements MenuServices {
 
     }
 
-    private void createDirectoryAndSaveFile(Context c, Bitmap imageToSave, String fileName) {
-
-        File direct = new File(c.getExternalFilesDir(null) + "/EmuaTablet");
+    private void createDirectoryAndSaveFile(Context c, Bitmap imageToSave, String fileName, String format) {
+//c.getExternalFilesDir(null) Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        File direct = new File(String.valueOf(Environment.getExternalStoragePublicDirectory("EmuaTablet")));
 
         if (!direct.exists()) {
-            File wallpaperDirectory = new File(c.getExternalFilesDir(null) + "/EmuaTablet");
+            File wallpaperDirectory = new File(String.valueOf(Environment.getExternalStoragePublicDirectory("EmuaTablet")));
             wallpaperDirectory.mkdirs();
         }
 
-        File file = new File(new File(c.getExternalFilesDir(null) + "/EmuaTablet"), fileName);
+        File file = new File(new File(String.valueOf(Environment.getExternalStoragePublicDirectory("EmuaTablet"))), fileName);
         if (file.exists()) {
             file.delete();
         }
 
         try {
             FileOutputStream out = new FileOutputStream(file);
-            imageToSave.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            if(format.equalsIgnoreCase("png")){
+                imageToSave.compress(Bitmap.CompressFormat.PNG, 100, out);
+            }else{
+                imageToSave.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            }
+            //imageToSave.compress(null, 100, out);
 
             out.flush();
             out.close();
