@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.ConnectivityManager;
 import android.os.Build;
+import android.os.Environment;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -37,7 +38,7 @@ public class MenuUtils {
         BitmapFactory.Options o = new BitmapFactory.Options();
         o.inSampleSize = 2;
 
-        File imgFile = new  File(filePath);
+        File imgFile = new  File(String.valueOf(Environment.getExternalStoragePublicDirectory(filePath)));
         if (imgFile.exists()) {
             Bitmap myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath(), o);
             return myBitmap;
