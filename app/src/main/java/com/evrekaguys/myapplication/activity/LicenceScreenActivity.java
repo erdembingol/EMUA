@@ -96,6 +96,7 @@ public class LicenceScreenActivity extends BaseActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Intent intent = new Intent(LicenceScreenActivity.this, CategoryListActivity.class);
+                                intent.putExtra("firstCall", "FIRST_CALL");
                                 startActivity(intent);
                             }
                         });

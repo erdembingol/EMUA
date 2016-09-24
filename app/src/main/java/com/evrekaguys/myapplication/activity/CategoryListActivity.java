@@ -45,8 +45,14 @@ public class CategoryListActivity extends BaseActivity implements Serializable{
 
         try {
             if (MenuUtils.checkInternet((ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE))) {
-                Services services = new Services();
-                services.execute(getApplicationContext());
+                String firstCall = getIntent().getStringExtra("firstCall");
+                if(firstCall != null && firstCall.equals("FIRST_CALL")){
+                    Services services = new Services();
+                    services.execute(getApplicationContext());
+                }else{
+                    showCategoryList();
+                }
+
             }else{
                 showCategoryList();
             }
