@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="250dp"
-    android:layout_height="250dp"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
     android:layout_marginTop="15dp"
     android:layout_marginRight="15dp"
     android:layout_marginLeft="15dp"
@@ -11,8 +11,8 @@
 
     <ImageView
         android:id="@+id/image"
-        android:layout_width="250dp"
-        android:layout_height="200dp"
+        android:layout_width="300dp"
+        android:layout_height="240dp"
         android:scaleType="fitXY"
         android:paddingLeft="1dp"
         android:paddingRight="1dp"
@@ -36,10 +36,10 @@
             <TextView
                 android:id="@+id/text"
                 android:text="Test"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
+                android:layout_width="300dp"
+                android:layout_height="60dp"
                 android:gravity="center"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:textStyle="bold"
                 android:textColor="#8ca932"
                 android:foregroundGravity="center"

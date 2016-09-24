@@ -288,7 +288,8 @@ public class MenuServicesImpl implements MenuServices {
 
         try {
             FileOutputStream out = new FileOutputStream(file);
-            imageToSave.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            //imageToSave.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            imageToSave.compress(Bitmap.CompressFormat.PNG, 100, out);
 
             out.flush();
             out.close();
