@@ -1,6 +1,7 @@
 package com.evrekaguys.myapplication.adaptor;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,24 +30,25 @@ public class CategoryListAdapter extends ArrayAdapter<String> {
 
 	}
 	
-	public View getView(int position,View view,ViewGroup parent) {
+	public View getView(int position, View view, ViewGroup parent) {
 
-		LayoutInflater inflater = context.getLayoutInflater();
-		View gridView = inflater.inflate(R.layout.single_item_in_category_list, null,true);
-
+		View gridView;
 		if (view == null) {
-			String[] categoryInfo = itemname.get(position).split("/-/");
-			TextView txtTitle = (TextView) gridView.findViewById(R.id.category_name_label);
-			txtTitle.setText(categoryInfo[0]);
-
-			ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
-			imageView.setImageBitmap(imgid.get(position));
-
-			TextView extratxt = (TextView) gridView.findViewById(R.id.category_description_label);
-			extratxt.setText("Bu kategori altında " + categoryInfo[1] + " adet ürün vardır.");
+			LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			gridView = inflater.inflate(R.layout.single_item_in_category_list, parent, false);
 		} else {
 			gridView = (View) view;
 		}
+
+		String[] categoryInfo = itemname.get(position).split("/-/");
+		TextView txtTitle = (TextView) gridView.findViewById(R.id.category_name_label);
+		txtTitle.setText(categoryInfo[0]);
+
+		ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
+		imageView.setImageBitmap(imgid.get(position));
+
+		TextView extratxt = (TextView) gridView.findViewById(R.id.category_description_label);
+		extratxt.setText("Bu kategori altında " + categoryInfo[1] + " adet ürün vardır.");
 
 		return gridView;
 

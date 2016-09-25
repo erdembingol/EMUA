@@ -156,7 +156,7 @@
                 android:textStyle="bold"
                 android:clickable="true"
                 android:layout_gravity="center_horizontal"
-                android:textSize="24dp" />
+                android:textSize="20dp" />
 
         </LinearLayout>
 
