@@ -10,6 +10,9 @@ import java.util.List;
 
 public interface MenuServices {
 
+    public String getUpdateCategoryList(Context c);
+    public String getUpdateProductList(Context c);
+    public String setUpdateSuccess(Context c);
     public List<Category> getCategoryList(Context c);
     public List<Product> getProductList(Context c);
     public List<Category> getCategoryListFromDB(Context c);

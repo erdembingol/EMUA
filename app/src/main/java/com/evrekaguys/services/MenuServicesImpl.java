@@ -137,6 +137,222 @@ public class MenuServicesImpl implements MenuServices {
     }
 
     @Override
+    public String getUpdateCategoryList(Context c) {
+        SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_GET_UPDATE_CATEGORY);
+        request.addProperty("MAC",MenuUtils.getMacAddress(c));
+        DBHelper dbHelper = new DBHelper(c);
+        Category category = new Category();
+        Bitmap bitmap = null;
+
+        SoapObject response = connectToWebService(request,WebServiceConstants.SOAP_ACTION_GET_UPDATE_CATEGORY);
+        if(response.getPropertyCount() <=0)
+            return "0";
+        for (int i=0; i<response.getPropertyCount();i++) {
+
+            category = new Category();
+            Object property = response.getProperty(i);
+
+            if (property instanceof  SoapObject) {
+                SoapObject categoryObj = (SoapObject) property;
+
+                String processType = categoryObj.getProperty("ProcessType").toString();
+                if(processType.equals("I")){
+                    Integer categoryID = Integer.parseInt(categoryObj.getProperty("CategoryID").toString());
+                    String categoryName = categoryObj.getProperty("CategoryName").toString();
+                    String imageUrl = categoryObj.getProperty("CategoryImageUrl").toString();
+                    Integer categoryOrder = Integer.parseInt(categoryObj.getProperty("CategoryOrderNumber").toString());
+                    Date createdDate = new Date();
+                    try {
+                        createdDate = new SimpleDateFormat().parse(categoryObj.getProperty("CategoryCreatedDate").toString());
+                    } catch (ParseException e) {
+                        createdDate = new Date();
+                    }
+                    category.setCategoryID(categoryID);
+                    category.setCategoryName(categoryName);
+                    String[] imageArray = imageUrl.split("/");
+                    String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
+                    category.setCategoryImageUrl("/EmuaTablet/"+imageFileName);
+                    try {
+                        bitmap = null;
+                        InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(imageUrl,"UTF-8").replace("+", "%20")).openStream();
+                        bitmap = BitmapFactory.decodeStream(inputStream);
+
+                        inputStream.close();
+                    } catch (IOException e) {}
+
+                    createDirectoryAndSaveFile(c,bitmap, imageFileName, imageFileName.split("\\.")[1]);
+                    category.setOrder(categoryOrder);
+                    category.setCreateDate(createdDate);
+                    dbHelper.insertCategory(category);
+                }else if(processType.equals("U")){
+                    Integer categoryID = Integer.parseInt(categoryObj.getProperty("CategoryID").toString());
+                    String categoryName = categoryObj.getProperty("CategoryName").toString();
+                    String imageUrl = categoryObj.getProperty("CategoryImageUrl").toString();
+                    Integer categoryOrder = Integer.parseInt(categoryObj.getProperty("CategoryOrderNumber").toString());
+                    Date createdDate = new Date();
+                    try {
+                        createdDate = new SimpleDateFormat().parse(categoryObj.getProperty("CategoryCreatedDate").toString());
+                    } catch (ParseException e) {
+                        createdDate = new Date();
+                    }
+                    category.setCategoryID(categoryID);
+                    category.setCategoryName(categoryName);
+                    String[] imageArray = imageUrl.split("/");
+                    String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
+                    category.setCategoryImageUrl("/EmuaTablet/"+imageFileName);
+                    try {
+                        bitmap = null;
+                        InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(imageUrl,"UTF-8").replace("+", "%20")).openStream();
+                        bitmap = BitmapFactory.decodeStream(inputStream);
+
+                        inputStream.close();
+                    } catch (IOException e) {}
+
+                    createDirectoryAndSaveFile(c,bitmap, imageFileName, imageFileName.split("\\.")[1]);
+                    category.setOrder(categoryOrder);
+                    category.setCreateDate(createdDate);
+                    dbHelper.updateCategory(category);
+                }else if(processType.equals("D")){
+                    Integer categoryID = Integer.parseInt(categoryObj.getProperty("CategoryID").toString());
+                    dbHelper.deleteCategory(categoryID);
+                }
+            }
+
+        }
+
+        return "1";
+    }
+
+    @Override
+    public String getUpdateProductList(Context c) {
+        SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_GET_UPDATE_PRODUCT);
+        request.addProperty("MAC",MenuUtils.getMacAddress(c));
+        DBHelper dbHelper = new DBHelper(c);
+        Product product = new Product();
+
+        Bitmap bitmap = null;
+
+        SoapObject response = connectToWebService(request,WebServiceConstants.SOAP_ACTION_GET_UPDATE_PRODUCT);
+        if(response.getPropertyCount() <= 0)
+            return "0";
+        for(int i=0; i<response.getPropertyCount();i++) {
+            product = new Product();
+            Object property = response.getProperty(i);
+
+            if(property instanceof  SoapObject) {
+                SoapObject productObj = (SoapObject) property;
+
+                String processType = productObj.getProperty("ProcessType").toString();
+                if(processType.equals("I")){
+                    Integer productID = Integer.parseInt(productObj.getProperty("ProductSecondID").toString());
+                    String productName = productObj.getProperty("ProductName").toString();
+                    String imageUrl = productObj.getProperty("ProductImageUrl").toString();
+                    Integer productOrder = Integer.parseInt(productObj.getProperty("ProductOrderNumber").toString());
+                    String detail = productObj.getProperty("ProductDetail").toString();
+                    String serviceTime = productObj.getProperty("ProductServiceTime").toString();
+                    BigDecimal price = BigDecimal.valueOf(Double.parseDouble(productObj.getProperty("ProductPrice").toString()));
+                    Integer categoryID = Integer.parseInt(productObj.getProperty("ProductCategoryID").toString());
+                    Date createdDate = new Date();
+
+                    try {
+                        createdDate = new SimpleDateFormat().parse(productObj.getProperty("ProductCreatedDate").toString());
+                    } catch (ParseException e) {
+                        createdDate = new Date();
+                    }
+                    product.setProductID(productID);
+                    product.setProductName(productName);
+                    String[] imageArray= imageUrl.split("/");
+                    String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
+                    product.setProductImageUrl("/EmuaTablet/"+imageFileName);
+                    try {
+                        bitmap = null;
+                        InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(imageUrl,"UTF-8").replace("+", "%20")).openStream();
+                        bitmap = BitmapFactory.decodeStream(inputStream);
+
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    createDirectoryAndSaveFile(c,bitmap, imageFileName, imageFileName.split("\\.")[1]);
+                    product.setOrder(productOrder);
+                    product.setCreateDate(createdDate);
+                    product.setProductDetail(detail);
+                    product.setServiceTime(serviceTime);
+                    product.setProductPrice(price);
+                    product.setCategoryID(categoryID);
+                    dbHelper.insertProduct(product);
+                }else if(processType.equals("U")){
+                    Integer productID = Integer.parseInt(productObj.getProperty("ProductSecondID").toString());
+                    String productName = productObj.getProperty("ProductName").toString();
+                    String imageUrl = productObj.getProperty("ProductImageUrl").toString();
+                    Integer productOrder = Integer.parseInt(productObj.getProperty("ProductOrderNumber").toString());
+                    String detail = productObj.getProperty("ProductDetail").toString();
+                    String serviceTime = productObj.getProperty("ProductServiceTime").toString();
+                    BigDecimal price = BigDecimal.valueOf(Double.parseDouble(productObj.getProperty("ProductPrice").toString()));
+                    Integer categoryID = Integer.parseInt(productObj.getProperty("ProductCategoryID").toString());
+                    Date createdDate = new Date();
+
+                    try {
+                        createdDate = new SimpleDateFormat().parse(productObj.getProperty("ProductCreatedDate").toString());
+                    } catch (ParseException e) {
+                        createdDate = new Date();
+                    }
+                    product.setProductID(productID);
+                    product.setProductName(productName);
+                    String[] imageArray= imageUrl.split("/");
+                    String imageFileName = imageArray[imageArray.length-1].contains(" ") ? imageArray[imageArray.length-1].replace(" ", "_") : imageArray[imageArray.length-1];
+                    product.setProductImageUrl("/EmuaTablet/"+imageFileName);
+                    try {
+                        bitmap = null;
+                        InputStream inputStream = new URL(WebServiceConstants.SERVICE_LINK + URLEncoder.encode(imageUrl,"UTF-8").replace("+", "%20")).openStream();
+                        bitmap = BitmapFactory.decodeStream(inputStream);
+
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    createDirectoryAndSaveFile(c,bitmap, imageFileName, imageFileName.split("\\.")[1]);
+                    product.setOrder(productOrder);
+                    product.setCreateDate(createdDate);
+                    product.setProductDetail(detail);
+                    product.setServiceTime(serviceTime);
+                    product.setProductPrice(price);
+                    product.setCategoryID(categoryID);
+                    dbHelper.updateProduct(product);
+                }else if(processType.equals("D")){
+                    Integer productID = Integer.parseInt(productObj.getProperty("ProductSecondID").toString());
+                    dbHelper.deleteProduct(productID);
+                }
+            }
+
+        }
+
+        return "1";
+    }
+
+    @Override
+    public String setUpdateSuccess(Context c) {
+        SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_GET_UPDATE_SUCCESS);
+        request.addProperty("MAC", MenuUtils.getMacAddress(c));
+
+        SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(SoapEnvelope.VER11);
+        envelope.dotNet = true;
+        envelope.setOutputSoapObject(request);
+
+        HttpTransportSE androidHttpTransport = new HttpTransportSE(WebServiceConstants.URL);
+        try {
+            androidHttpTransport.call(WebServiceConstants.SOAP_ACTION_GET_UPDATE_SUCCESS, envelope);
+            SoapPrimitive response = (SoapPrimitive) envelope.getResponse();
+
+            return Boolean.valueOf(response.toString()) ? "1":"0";
+        } catch (Exception e) {
+            return "0";
+        }
+    }
+
+    @Override
     public List<Category> getCategoryList(Context c) {
 
         SoapObject request = new SoapObject(WebServiceConstants.NAMESPACE, WebServiceConstants.METHOD_NAME_GET_CATEGORY);
