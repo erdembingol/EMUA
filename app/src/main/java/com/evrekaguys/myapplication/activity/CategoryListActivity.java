@@ -50,7 +50,8 @@ public class CategoryListActivity extends BaseActivity implements Serializable{
                     Services services = new Services();
                     services.execute(getApplicationContext());
                 }else{
-                    showCategoryList();
+                    UpdateServices updateServices = new UpdateServices();
+                    updateServices.execute(getApplicationContext());
                 }
 
             }else{
@@ -194,6 +195,7 @@ public class CategoryListActivity extends BaseActivity implements Serializable{
                 downloadCategoryListToLocalDB(params[0]);
                 downloadProductListToLocalDB(params[0]);
                 downloadCompanyToLocalDB(params[0]);
+                menuServices.setUpdateSuccess(params[0]);
             }
 
             return null;
@@ -209,6 +211,48 @@ public class CategoryListActivity extends BaseActivity implements Serializable{
 
             showCategoryList();
 
+        }
+
+    }
+
+    public class UpdateServices extends AsyncTask<Context, String, List<?>> {
+
+        private MenuServices menuServices = new MenuServicesImpl();
+
+
+        @Override
+        protected void onPreExecute() {
+
+            dialog = new ProgressDialog(CategoryListActivity.this);
+            dialog.setMessage("Güncel ürün bilgileri indiriliyor. Lütfen bekleyiniz...");
+            dialog.setCancelable(false);
+            dialog.setIndeterminate(true);
+            dialog.show();
+
+        }
+
+        @Override
+        protected List<?> doInBackground(Context... params) {
+
+           String updateCategory = "";
+           String updateProduct = "";
+
+            updateCategory = menuServices.getUpdateCategoryList(params[0]);
+            updateProduct = menuServices.getUpdateProductList(params[0]);
+
+            //if((updateCategory.equals("1") && updateProduct.equals("1"))||(updateCategory.equals("1") && updateProduct.equals("0"))||(updateCategory.equals("0") && updateProduct.equals("1")))
+                //menuServices.setUpdateSuccess(params[0]);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<?> objects) {
+
+            if ((dialog != null) && dialog.isShowing()) {
+                dialog.dismiss();
+            }
+            showCategoryList();
         }
 
     }

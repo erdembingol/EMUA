@@ -24,7 +24,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_COLOR = "colour";
 
     public DBHelper(Context context){
-        super(context,DATABASE_NAME,null,11);
+        super(context,DATABASE_NAME,null,12);
     }
 
     @Override
