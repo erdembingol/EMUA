@@ -240,8 +240,8 @@ public class CategoryListActivity extends BaseActivity implements Serializable{
             updateCategory = menuServices.getUpdateCategoryList(params[0]);
             updateProduct = menuServices.getUpdateProductList(params[0]);
 
-            //if((updateCategory.equals("1") && updateProduct.equals("1"))||(updateCategory.equals("1") && updateProduct.equals("0"))||(updateCategory.equals("0") && updateProduct.equals("1")))
-                //menuServices.setUpdateSuccess(params[0]);
+            if((updateCategory.equals("1") && updateProduct.equals("1"))||(updateCategory.equals("1") && updateProduct.equals("0"))||(updateCategory.equals("0") && updateProduct.equals("1")))
+                menuServices.setUpdateSuccess(params[0]);
 
             return null;
         }
