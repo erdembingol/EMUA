@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.evrekaguys.myapplication.R;
 import com.evrekaguys.myapplication.activity.base.BaseActivity;
@@ -61,5 +62,9 @@ public class StartActivity extends BaseActivity {
 
         return licenced;
 
+    }
+
+    public void update(View v) {
+        Toast.makeText(getApplicationContext(), "There is no update...", Toast.LENGTH_SHORT).show();
     }
 }
