@@ -47,9 +47,6 @@ public class CategoryListAdapter extends ArrayAdapter<String> {
 		ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
 		imageView.setImageBitmap(imgid.get(position));
 
-		TextView extratxt = (TextView) gridView.findViewById(R.id.category_description_label);
-		extratxt.setText("Bu kategori altında " + categoryInfo[1] + " adet ürün vardır.");
-
 		return gridView;
 
 	}

@@ -19,6 +19,38 @@
 
         <LinearLayout
             android:orientation="vertical"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_weight="35"
+            android:weightSum="10"
+            android:gravity="right"
+            android:layout_alignParentRight="true"
+            android:layout_margin="15dp"
+            android:background="#00000000">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center|bottom"
+                android:gravity="bottom"
+                android:background="#00000000">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imageButton"
+                    android:layout_gravity="right"
+                    android:scaleType="fitXY"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/update_"
+                    android:onClick="update" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal">
