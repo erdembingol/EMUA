@@ -68,7 +68,6 @@ public class ProductDetailAdapter extends PagerAdapter {
             if(product.getProductDetail().length() < urunDetay.getTextSize()) {
                 urunDetay.setText(product.getProductDetail());
             } else {
-                //urunDetay.setText(product.getProductDetail().substring(0, Math.round(urunDetay.getTextSize()) - 4) + " >>>");
                 urunDetay.setText(detayPrint(product.getProductDetail(), Math.round(urunDetay.getTextSize())));
                 urunDetay.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -99,11 +98,7 @@ public class ProductDetailAdapter extends PagerAdapter {
         urunFiyat.setText(product.getProductPrice().toString() + " TL");
 
         TextView urunServisiSuresi = (TextView) rowView.findViewById(R.id.urunServisSuresi);
-        String serviceTime = product.getServiceTime().toString();
-        if (serviceTime.length() >= 3)
-            urunServisiSuresi.setText(serviceTime.substring(0, serviceTime.length()-3) + " dk");
-        else
-            urunServisiSuresi.setText(serviceTime + " dk");
+        urunServisiSuresi.setText(product.getServiceTime().toString() + " dk");
 
         ImageView icon = (ImageView) rowView.findViewById(R.id.sirketIcon);
         icon.setImageBitmap(MenuUtils.loadImageSpecificLocation(company.getCompanyLogoUrl()));
@@ -121,6 +116,10 @@ public class ProductDetailAdapter extends PagerAdapter {
     }
 
     private static String detayPrint(String text, int size) {
+
+        /* if 'text' is null or empty, return empty string */
+        if (text == null || text.length() == 0)
+            return "";
 
         StringBuilder sb = new StringBuilder("");
 
