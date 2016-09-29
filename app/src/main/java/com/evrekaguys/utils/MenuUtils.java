@@ -116,15 +116,15 @@ public class MenuUtils {
     public static void writeToFile(BaseActivity activity, List<Colour> colours) {
 
         try {
-            OutputStreamWriter outputStreamWriter = new OutputStreamWriter(activity.openFileOutput("colours.txt", Context.MODE_PRIVATE));
+            OutputStreamWriter osw = new OutputStreamWriter(activity.openFileOutput("colours.txt", Context.MODE_PRIVATE));
 
             for (int i = 0; i < colours.size(); i++) {
-                outputStreamWriter.write(colours.get(i).name + "&" + colours.get(i).value + "\n");
+                osw.write(colours.get(i).name + "&" + colours.get(i).value + "\n");
             }
 
-            outputStreamWriter.close();
+            osw.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Colours could not write to file...");
         }
 
     }
@@ -147,9 +147,9 @@ public class MenuUtils {
                 inputStream.close();
             }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+            return null;
         } catch (IOException e) {
-            e.printStackTrace();
+            return null;
         }
 
         return colours;

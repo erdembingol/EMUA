@@ -40,7 +40,9 @@ public class CategoryListActivity extends BaseActivity implements Serializable{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
+
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
         setTitle(R.string.app_name);
 
         try {
@@ -109,6 +111,7 @@ public class CategoryListActivity extends BaseActivity implements Serializable{
         CategoryListAdapter adapter = new CategoryListAdapter(CategoryListActivity.this, itemName, imgId);
         categoriesGridView = (GridView) findViewById(R.id.gridView);
         categoriesGridView.setAdapter(adapter);
+        categoriesGridView.setFastScrollEnabled(true);
 
         final ArrayList<Product> finalProductList = (ArrayList<Product>) productList;
         final List<Category> finalCategoryList = categoryList;

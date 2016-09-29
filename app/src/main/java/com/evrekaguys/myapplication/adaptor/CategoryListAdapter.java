@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.evrekaguys.myapplication.R;
+import com.evrekaguys.myapplication.model.ImageItem;
 
 import java.util.List;
 
@@ -40,10 +41,12 @@ public class CategoryListAdapter extends ArrayAdapter<String> {
 			gridView = (View) view;
 		}
 
+		/* set category name */
 		String[] categoryInfo = itemname.get(position).split("/-/");
 		TextView txtTitle = (TextView) gridView.findViewById(R.id.category_name_label);
 		txtTitle.setText(categoryInfo[0]);
 
+		/* set category image */
 		ImageView imageView = (ImageView) gridView.findViewById(R.id.grid_item_image);
 		imageView.setImageBitmap(imgid.get(position));
 

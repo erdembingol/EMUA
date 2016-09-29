@@ -59,20 +59,21 @@ public class ProductDetailAdapter extends PagerAdapter {
         final Product product = productList.get(position);
         imageView.setImageBitmap(MenuUtils.loadImageSpecificLocation(product.getProductImageUrl()));
 
+        /* set the product name */
         final TextView urunAdi = (TextView) rowView.findViewById(R.id.urunAdi);
         urunAdi.setText(product.getProductName());
 
-        if (!product.getProductDetail().equals(null)){
-            final TextView urunDetay = (TextView) rowView.findViewById(R.id.urunDetay);
-
-            if(product.getProductDetail().length() < urunDetay.getTextSize()) {
-                urunDetay.setText(product.getProductDetail());
-            } else {
-                //urunDetay.setText(product.getProductDetail().substring(0, Math.round(urunDetay.getTextSize()) - 4) + " >>>");
-                urunDetay.setText(detayPrint(product.getProductDetail(), Math.round(urunDetay.getTextSize())));
-                urunDetay.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+        /* set the product detail */
+        final TextView urunDetay = (TextView) rowView.findViewById(R.id.urunDetay);
+        if (product.getProductDetail() == null || product.getProductDetail().length() == 0) {
+            urunDetay.setText("");
+            LinearLayout ll = (LinearLayout) rowView.findViewById(R.id.urunDetayLayout);
+            ll.setVisibility(View.GONE);
+        } else {
+            urunDetay.setText("Detay >>>");
+            urunDetay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
                     final Dialog dialog = new Dialog(context, R.style.ThemeDialogCustom);
                     dialog.setContentView(R.layout.description_in_product_detail);
                     dialog.setTitle("Açıklama");
@@ -87,24 +88,19 @@ public class ProductDetailAdapter extends PagerAdapter {
                         }
                     });
                     dialog.show();
-                    }
-                });
-            }
-        } else {
-            LinearLayout ll = (LinearLayout) rowView.findViewById(R.id.urunDetayLayout);
-            ll.setVisibility(View.GONE);
+                }
+            });
         }
 
+        /* set the product cost */
         TextView urunFiyat = (TextView) rowView.findViewById(R.id.urunFiyat);
         urunFiyat.setText(product.getProductPrice().toString() + " TL");
 
+        /* set the product service time */
         TextView urunServisiSuresi = (TextView) rowView.findViewById(R.id.urunServisSuresi);
-        String serviceTime = product.getServiceTime().toString();
-        if (serviceTime.length() >= 3)
-            urunServisiSuresi.setText(serviceTime.substring(0, serviceTime.length()-3) + " dk");
-        else
-            urunServisiSuresi.setText(serviceTime + " dk");
+        urunServisiSuresi.setText(product.getServiceTime().toString() + " dk");
 
+        /* set the company image */
         ImageView icon = (ImageView) rowView.findViewById(R.id.sirketIcon);
         icon.setImageBitmap(MenuUtils.loadImageSpecificLocation(company.getCompanyLogoUrl()));
         ((ViewPager) container).addView(rowView, 0);
@@ -120,19 +116,4 @@ public class ProductDetailAdapter extends PagerAdapter {
 
     }
 
-    private static String detayPrint(String text, int size) {
-
-        StringBuilder sb = new StringBuilder("");
-
-        String[] tokens = text.substring(0, text.length()-4).split(" ");
-        for (int i = 0; i < tokens.length; i++) {
-            if (sb.length() + tokens[i].length() > size)
-                break;
-
-            sb.append(tokens[i] + " ");
-        }
-
-        return sb.append(" >>>").toString();
-
-    }
 }
