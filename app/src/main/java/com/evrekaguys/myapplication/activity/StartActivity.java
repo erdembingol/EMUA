@@ -1,9 +1,12 @@
 package com.evrekaguys.myapplication.activity;
 
 import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -19,6 +22,8 @@ import com.evrekaguys.myapplication.R;
 import com.evrekaguys.myapplication.activity.base.BaseActivity;
 import com.evrekaguys.myapplication.db.DBHelper;
 import com.evrekaguys.myapplication.model.Colour;
+import com.evrekaguys.services.MenuServices;
+import com.evrekaguys.services.MenuServicesImpl;
 import com.evrekaguys.utils.MenuUtils;
 
 import java.util.ArrayList;
@@ -28,6 +33,8 @@ import java.util.Set;
 
 public class StartActivity extends BaseActivity {
 
+    private String update="";
+    ProgressDialog dialog;
     View view;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,6 +61,17 @@ public class StartActivity extends BaseActivity {
                 return true;
             }
         });
+
+    }
+
+    @Override
+    protected void onPause() {
+
+        super.onPause();
+
+        if ((dialog != null) && dialog.isShowing())
+            dialog.dismiss();
+        dialog = null;
 
     }
 
@@ -107,7 +125,67 @@ public class StartActivity extends BaseActivity {
 
     }
 
-    public void update(View v) {
-        Toast.makeText(getApplicationContext(), "There is no update...", Toast.LENGTH_SHORT).show();
+    public class UpdateServices extends AsyncTask<Context, String, List<?>> {
+
+        private MenuServices menuServices = new MenuServicesImpl();
+
+
+        @Override
+        protected void onPreExecute() {
+
+            dialog = new ProgressDialog(StartActivity.this);
+            dialog.setMessage("Güncel ürün bilgileri indiriliyor. Lütfen bekleyiniz...");
+            dialog.setCancelable(false);
+            dialog.setIndeterminate(true);
+            dialog.show();
+
+        }
+
+        @Override
+        protected List<?> doInBackground(Context... params) {
+
+            String updateCategory = "";
+            String updateProduct = "";
+
+            updateCategory = menuServices.getUpdateCategoryList(params[0]);
+            updateProduct = menuServices.getUpdateProductList(params[0]);
+
+            if((updateCategory.equals("1") && updateProduct.equals("1"))||(updateCategory.equals("1") && updateProduct.equals("0"))||(updateCategory.equals("0") && updateProduct.equals("1")))
+                menuServices.setUpdateSuccess(params[0]);
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(List<?> objects) {
+
+            if ((dialog != null) && dialog.isShowing()) {
+                dialog.dismiss();
+            }
+        }
+
+    }
+
+    public void update1(View v) {
+        update = update+"1";
+    }
+
+    public void update2(View v) {
+        update = update+"2";
+    }
+
+    public void update3(View v) {
+        update = update+"3";
+    }
+
+    public void update4(View v) {
+        update = update+"4";
+
+        if("2314".equals(update)){
+            UpdateServices updateServices = new UpdateServices();
+            updateServices.execute(getApplicationContext());
+            update = "";
+        }
+        //Toast.makeText(getApplicationContext(), "There is no update...", Toast.LENGTH_SHORT).show();
     }
 }

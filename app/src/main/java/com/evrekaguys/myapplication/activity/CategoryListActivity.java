@@ -52,8 +52,7 @@ public class CategoryListActivity extends BaseActivity implements Serializable{
                     Services services = new Services();
                     services.execute(getApplicationContext());
                 }else{
-                    UpdateServices updateServices = new UpdateServices();
-                    updateServices.execute(getApplicationContext());
+                    showCategoryList();
                 }
 
             }else{
@@ -111,7 +110,6 @@ public class CategoryListActivity extends BaseActivity implements Serializable{
         CategoryListAdapter adapter = new CategoryListAdapter(CategoryListActivity.this, itemName, imgId);
         categoriesGridView = (GridView) findViewById(R.id.gridView);
         categoriesGridView.setAdapter(adapter);
-        categoriesGridView.setFastScrollEnabled(true);
 
         final ArrayList<Product> finalProductList = (ArrayList<Product>) productList;
         final List<Category> finalCategoryList = categoryList;
@@ -218,45 +216,5 @@ public class CategoryListActivity extends BaseActivity implements Serializable{
 
     }
 
-    public class UpdateServices extends AsyncTask<Context, String, List<?>> {
 
-        private MenuServices menuServices = new MenuServicesImpl();
-
-
-        @Override
-        protected void onPreExecute() {
-
-            dialog = new ProgressDialog(CategoryListActivity.this);
-            dialog.setMessage("Güncel ürün bilgileri indiriliyor. Lütfen bekleyiniz...");
-            dialog.setCancelable(false);
-            dialog.setIndeterminate(true);
-            dialog.show();
-
-        }
-
-        @Override
-        protected List<?> doInBackground(Context... params) {
-
-           String updateCategory = "";
-           String updateProduct = "";
-
-            updateCategory = menuServices.getUpdateCategoryList(params[0]);
-            updateProduct = menuServices.getUpdateProductList(params[0]);
-
-            if((updateCategory.equals("1") && updateProduct.equals("1"))||(updateCategory.equals("1") && updateProduct.equals("0"))||(updateCategory.equals("0") && updateProduct.equals("1")))
-                menuServices.setUpdateSuccess(params[0]);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(List<?> objects) {
-
-            if ((dialog != null) && dialog.isShowing()) {
-                dialog.dismiss();
-            }
-            showCategoryList();
-        }
-
-    }
 }

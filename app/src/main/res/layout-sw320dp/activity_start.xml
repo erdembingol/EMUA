@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/button"
                     android:background="@android:color/transparent"
-                    android:onClick="update" />
+                    android:onClick="update1" />
             </LinearLayout>
 
         </LinearLayout>
@@ -71,7 +71,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/button2"
                     android:background="@android:color/transparent"
-                    android:onClick="update" />
+                    android:onClick="update2" />
             </LinearLayout>
 
         </LinearLayout>
@@ -101,7 +101,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/button3"
                     android:background="@android:color/transparent"
-                    android:onClick="update" />
+                    android:onClick="update3" />
             </LinearLayout>
 
         </LinearLayout>
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/button4"
                     android:background="@android:color/transparent"
-                    android:onClick="update" />
+                    android:onClick="update4" />
             </LinearLayout>
 
         </LinearLayout>
