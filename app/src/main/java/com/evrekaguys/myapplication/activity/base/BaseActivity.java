@@ -22,7 +22,7 @@ public class BaseActivity extends AppCompatActivity {
 
         List<Colour> colours = MenuUtils.readFromFile(this);
 
-        if (!colours.isEmpty()) {
+        if (colours != null) {
             String actionBarColor = colours.get(0).value;
             String statusBarColor = colours.get(1).value;
 
@@ -84,7 +84,7 @@ public class BaseActivity extends AppCompatActivity {
 
         List<Colour> colours = MenuUtils.readFromFile(this);
 
-        if (!colours.isEmpty()) {
+        if (colours != null) {
             String actionBarColor = colours.get(0).value;
             String statusBarColor = colours.get(1).value;
 
@@ -101,7 +101,7 @@ public class BaseActivity extends AppCompatActivity {
 
         List<Colour> colours = MenuUtils.readFromFile(this);
 
-        if (!colours.isEmpty()) {
+        if (colours != null) {
             String actionBarColor = colours.get(0).value;
             String statusBarColor = colours.get(1).value;
 

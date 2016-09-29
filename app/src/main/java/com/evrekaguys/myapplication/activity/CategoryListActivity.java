@@ -40,7 +40,9 @@ public class CategoryListActivity extends BaseActivity implements Serializable{
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_list);
+
         getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+
         setTitle(R.string.app_name);
 
         try {
