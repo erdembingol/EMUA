@@ -19,13 +19,12 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_weight="35"
             android:weightSum="10"
             android:gravity="left"
             android:layout_alignParentRight="false"
-            android:layout_margin="10dp"
             android:background="#00000000"
             android:layout_alignParentLeft="true">
 
@@ -34,12 +33,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center|left"
-                android:gravity="bottom"
+                android:gravity="center"
                 android:background="#00000000">
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:id="@+id/button"
                     android:background="@android:color/transparent"
                     android:onClick="update1" />
@@ -49,13 +48,12 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_weight="35"
             android:weightSum="10"
             android:gravity="right"
             android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
             android:background="#00000000">
 
             <LinearLayout
@@ -68,7 +66,7 @@
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:id="@+id/button2"
                     android:background="@android:color/transparent"
                     android:onClick="update2" />
@@ -78,13 +76,12 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_weight="35"
             android:weightSum="10"
             android:gravity="right"
             android:layout_alignParentRight="false"
-            android:layout_margin="10dp"
             android:background="#00000000"
             android:layout_alignParentBottom="true">
 
@@ -98,7 +95,7 @@
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:id="@+id/button3"
                     android:background="@android:color/transparent"
                     android:onClick="update3" />
@@ -108,13 +105,12 @@
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
             android:layout_weight="35"
             android:weightSum="10"
             android:gravity="right"
             android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
             android:background="#00000000"
             android:layout_alignParentBottom="true">
 
@@ -128,44 +124,10 @@
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="60dp"
                     android:id="@+id/button4"
                     android:background="@android:color/transparent"
                     android:onClick="update4" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_weight="35"
-            android:weightSum="10"
-            android:gravity="right"
-            android:layout_alignParentRight="true"
-            android:layout_margin="10dp"
-            android:background="#00000000">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="center|bottom"
-                android:gravity="bottom"
-                android:background="#00000000">
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imageButton"
-                    android:layout_gravity="right"
-                    android:scaleType="fitXY"
-                    android:background="@android:color/transparent"
-                    android:onClick="update"
-                    android:src="@drawable/update_"
-                    android:visibility="invisible" />
-
             </LinearLayout>
 
         </LinearLayout>
