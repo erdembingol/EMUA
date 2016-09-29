@@ -43,10 +43,11 @@
                     android:layout_gravity="right"
                     android:scaleType="fitXY"
                     android:background="@android:color/transparent"
-                    android:src="@drawable/update_"
-                    android:onClick="update" />
+                    android:onClick="update"
+                    android:src="@drawable/update_" />
 
             </LinearLayout>
+
         </LinearLayout>
 
         <LinearLayout
