@@ -118,11 +118,11 @@ public class StartActivity extends BaseActivity {
 
     private boolean isLicenced() {
 
-        SharedPreferences settings = getSharedPreferences("LICENCE", 0);
-        boolean licenced = settings.getBoolean("licenced", false);
+//        SharedPreferences settings = getSharedPreferences("LICENCE", 0);
+//        boolean licenced = settings.getBoolean("licenced", false);
 
-        return licenced;
-
+//        return licenced;
+        return true;
     }
 
     public class UpdateServices extends AsyncTask<Context, String, List<?>> {
