@@ -65,7 +65,7 @@ public class ProductDetailAdapter extends PagerAdapter {
 
         /* set the product detail */
         final TextView urunDetay = (TextView) rowView.findViewById(R.id.urunDetay);
-        if (product.getProductDetail() == null || product.getProductDetail().length() == 0) {
+        if (product.getProductDetail() == null || product.getProductDetail().length() == 0 || product.getProductDetail().trim().equalsIgnoreCase("Any Type")) {
             urunDetay.setText("");
             LinearLayout ll = (LinearLayout) rowView.findViewById(R.id.urunDetayLayout);
             ll.setVisibility(View.GONE);

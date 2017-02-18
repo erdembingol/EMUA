@@ -122,7 +122,6 @@ public class StartActivity extends BaseActivity {
         boolean licenced = settings.getBoolean("licenced", false);
 
         return licenced;
-
     }
 
     public class UpdateServices extends AsyncTask<Context, String, List<?>> {
